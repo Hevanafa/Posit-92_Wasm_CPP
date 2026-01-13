@@ -1,0 +1,10 @@
+{
+  "name": "posit-92_wasm_cpp",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
