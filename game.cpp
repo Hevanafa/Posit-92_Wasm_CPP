@@ -6,6 +6,11 @@
 
 extern "C" {
   void signalDone();
+  void vgaFlush();
+}
+
+export void cleanup() {
+
 }
 
 export void init() {
