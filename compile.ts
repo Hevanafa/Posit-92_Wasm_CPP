@@ -2,14 +2,16 @@ import { styleText } from "node:util";
 
 const compilerPath = "E:\\emsdk\\upstream\\emscripten\\emcc.bat";
 const primaryFile = ".\\game.cpp";
-const outputFile = "game.wasm"
+const outputFile = "game.wasm";
+
+const exportedFunctions = ["getSurfacePtr", "init", "update", "draw", "cleanup"];
 
 const proc = Bun.spawn([
   compilerPath,
   primaryFile,
   "-o", outputFile,
   "-s", "STANDALONE_WASM=1",
-  "-s", "EXPORTED_FUNCTIONS", // TODO: List exported functions
+  "-s", `EXPORTED_FUNCTIONS='${ exportedFunctions.map(fname => `"_${fname}"`) }'`,
   "-s", "ALLOW_MEMORY_GROWTH=1",
   "--no-entry"
 ], {
