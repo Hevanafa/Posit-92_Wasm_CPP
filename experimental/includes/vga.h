@@ -1,4 +1,4 @@
-#include "../posit_92.hpp"
+#include "../posit-92.hpp"
 
 const word
   vgaWidth = 320,

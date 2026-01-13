@@ -1,7 +1,7 @@
 #include <emscripten.h>
 #include <stdint.h>
 
-#include "posit_92.hpp"
+#include "posit-92.hpp"
 #include "includes\vga.h"
 
 extern "C" {
@@ -10,7 +10,7 @@ extern "C" {
 }
 
 export void cleanup() {
-
+  
 }
 
 export void init() {
