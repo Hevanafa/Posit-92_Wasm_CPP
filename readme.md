@@ -1,7 +1,16 @@
+#
 
 C++ subset port of my [Posit-92 Wasm](https://github.com/Hevanafa/Posit-92_Wasm) game engine
 
 The glue code is based on `hello_quick` demo, so it's experimental
+
+## Requirements
+
+1. Emscripten
+2. VSCode (or any text editor that supports editing C++ code)
+3. [Bun](https://bun.com/) for build scripts
+
+I'm using a Windows 110 machine to compile & run this project
 
 ## Emscripten Setup
 
@@ -33,3 +42,15 @@ It should output along these lines:
 emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 3.1.73 (ac676d5e437525d15df5fd46bc2c208ec6d376a3)
 Copyright (C) 2014 the Emscripten authors (see AUTHORS.txt)
 ```
+
+## Microsoft's C++ Extension Setup for VSCode
+
+1. Install this one: [C/C++ by Microsoft](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
+
+2. Add this in the `includePath`:
+
+   ```powershell
+   E:\emsdk\upstream\emscripten\cache\sysroot\include
+   ```
+
+   The path depends on where you installed `emsdk`
