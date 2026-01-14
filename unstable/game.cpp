@@ -42,9 +42,12 @@ export void draw() {
   cls(0xFF6495ED);
 
   angle += 0.1667;
-  x = 50 + sin(angle) * 10;
-  y = 50 + cos(angle) * 10;
-  line(50, 50, (smallint) x, (smallint) y, white);
+  x = vgaWidth / 2 + sin(angle) * 10;
+  y = vgaHeight / 2 + cos(angle) * 10;
+  
+  line(
+    vgaWidth / 2, vgaHeight / 2,
+    (smallint) x, (smallint) y, white);
 
   vgaFlush();
 }
