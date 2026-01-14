@@ -11,8 +11,8 @@ const proc = Bun.spawn([
   primaryFile,
   "-o", outputFile,
   "-s", "STANDALONE_WASM=1",
-  "-s", `EXPORTED_FUNCTIONS=${ exportedFunctions.map(fname => `_${fname}`).join(", ") }`,
-  "-s", "ALLOW_MEMORY_GROWTH=1",
+  "-s", `EXPORTED_FUNCTIONS=${ exportedFunctions.map(fname => `_${fname}`).join(",") }`,
+  // "-s", "ALLOW_MEMORY_GROWTH=1",
   "--js-library", "library.js",
   "--no-entry"
   // "-o", "example.js"

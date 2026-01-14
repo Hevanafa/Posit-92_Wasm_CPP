@@ -97,7 +97,29 @@ Also the build scripts:
 
 ### `emcc` Command Breakdown
 
+The full command line looks like this:
 
+```powershell
+E:\emsdk\upstream\emscripten\emcc.bat .\game.cpp -o game.wasm -s STANDALONE_WASM=1 -s EXPORTED_FUNCTIONS=_getSurfacePtr,_init,_update,_draw,_cleanup --js-library library.js --no-entry
+```
+
+- `E:\emsdk\upstream\emscripten\emcc.bat` is the complete path of `emcc`
+- `.\game.cpp` - this is the primary file / entry point
+- `-o game.wasm`
+  
+  This makes a WASM binary output, which is expected.
+  
+  But, if you want to see how the default Emscripten glue code looks like by default, use `.js` extension for it, e.g. `game.js`
+
+- `-s STANDALONE_WASM=1` - this makes it a standalone WebAssembly binary without the entry point `main()`
+- `-s EXPORTED_FUNCTIONS`
+
+  You can list the exported functions from C++ here, just add an underscore prefix on each item so that the compiler won't complain
+
+  Every exported function has the `extern "C" EMSCRIPTEN_KEEPALIVE` prefix so that it doesn't get deleted during compile time **and** doesn't get its name mangled
+
+- `--js-library library.js` - this contains the stub function declarations
+- `--no-entry` - this makes it not call `main()` since it's technically a WebAssembly *library*
 
 ### Why do I need stub declarations?
 
@@ -108,6 +130,6 @@ procedure signalDone; external 'env' name 'signalDone';
 function getTimer: double; external 'env' name 'getTimer';
 ```
 
-But with Emscripten (C++), I should use its mechanism willy-nilly, in order to reuse my glue code from Posit-92 Wasm.  This approach is better than having to write inline JS for everything
+But with Emscripten (C++), I should use its mechanism willy-nilly, in order to be able to reuse my glue code from Posit-92 Wasm.  This approach is better than having to write inline JS for everything
 
 
