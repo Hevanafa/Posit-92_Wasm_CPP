@@ -10,6 +10,8 @@ typedef struct {
   const PByte dataPtr;
 } TImageRef;
 
+#define PImageRef TImageRef*
+
 const smallint
   MaxImageRefs = 256;
 
@@ -19,6 +21,10 @@ bool isImageSet(const longint imgHandle) {
   if (imgHandle <= 0) return;
 
   return imageRefs[imgHandle].allocSize > 0;
+}
+
+PImageRef getImagePtr(const longint imgHandle) {
+  return &imageRefs[imgHandle];
 }
 
 smallint findEmptyImageRefSlot() {
