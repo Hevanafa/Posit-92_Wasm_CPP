@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include "pascal_compat.hpp"
+#include "panic.hpp"
 
 typedef struct {
   smallint width;

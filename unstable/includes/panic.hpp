@@ -1,9 +1,10 @@
 #pragma once
 
-#include <string.h>
+#include <string>
 
-extern "C"
+extern "C" {
   extern void jsPanicHalt(const PByte textPtr, const size_t textLen);
+}
 
 void panicHalt(const std::string& msg) {
   byte msgBuffer[256];
@@ -11,5 +12,5 @@ void panicHalt(const std::string& msg) {
   for (word a = 0; a < msg.length(); a++)
     msgBuffer[a] = msg[a];
 
-  jsPanicHalt(&msgBuffer, msg.length());
+  jsPanicHalt(msgBuffer, msg.length());
 }

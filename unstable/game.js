@@ -39,6 +39,9 @@ class Game {
       isKeyDown: this.#isKeyDown.bind(this),
       signalDone: this.#signalDone.bind(this),
 
+      // Panic
+      jsPanicHalt: this.#panicHalt.bind(this),
+
       // Timing
       getTimer: () => this.#getTimer(),
       getFullTimer: () => this.#getFullTimer(),
@@ -185,6 +188,17 @@ class Game {
 
   #signalDone() {
     done = true
+  }
+
+  // panic.hpp
+  #panicHalt(textPtr, textLen) {
+    const buffer = new Uint8Array(this.#wasm.exports.memory.buffer, textPtr, textLen);
+    const msg = new TextDecoder().decode(buffer);
+
+    done = true;
+    this.cleanup();
+
+    throw new Error(`PANIC: ${msg}`)
   }
 
   // timing.hpp
