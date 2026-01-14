@@ -8,6 +8,14 @@
 
 mergeInto(LibraryManager.library, {
   signalDone: () => {},
+
+  // keyboard.hpp
   isKeyDown: (n) => {},
+
+  // timing.hpp
+  getTimer: () => {},
+  getFullTimer: () => {},
+
+  // vga.hpp
   vgaFlush: () => {}
-})
+});
