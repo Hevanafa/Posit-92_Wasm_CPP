@@ -92,3 +92,22 @@ Also the build scripts:
 - **compile.ts** - Compiles `game.cpp` to `game.wasm`
 - **run.ts** - Calls `server.ts`
 - **server.ts** - A basic server code that starts on `localhost:8008`
+
+## About the Compilation Process
+
+### `emcc` Command Breakdown
+
+
+
+### Why do I need stub declarations?
+
+In Pascal, when I want to call a JS function, I can simply use this syntax:
+
+```pascal
+procedure signalDone; external 'env' name 'signalDone';
+function getTimer: double; external 'env' name 'getTimer';
+```
+
+But with Emscripten (C++), I should use its mechanism willy-nilly, in order to reuse my glue code from Posit-92 Wasm.  This approach is better than having to write inline JS for everything
+
+
