@@ -75,5 +75,28 @@ void line(smallint x0, smallint y0, smallint x1, smallint y1, longword colour) {
     return;
   }
 
-  // TODO: Implement line rendering
+  dx = abs(x1 - x0);
+  dy = abs(y1 - y0);
+
+  if (x0 < x1) sx = 1; else sx = -1;
+  if (y0 < y1) sy = 1; else sy = -1;
+
+  err = dx - dy;
+
+  while ((x0 != x1) || (y0 != y1)) {
+    pset(x0, y0, solid);
+    e2 = 2 * err;
+
+    if (e2 > -dy) {
+      err = err - dy;
+      x0 = x0 + sx;
+    }
+
+    if (e2 < dx) {
+      err = err + dx;
+      y0 = y0 + sy;
+    }
+  }
+
+  pset(x0, y0, solid);
 }
