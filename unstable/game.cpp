@@ -20,6 +20,10 @@ export void init() {
   initBuffer();
 }
 
+export void afterInit() {
+  
+}
+
 export void update() {
 
 }

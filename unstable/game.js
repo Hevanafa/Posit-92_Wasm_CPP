@@ -43,7 +43,7 @@ class Game {
     this.#ctx = this.#canvas.getContext("2d");
   }
 
-  async initWebAssembly() {
+  async #initWebAssembly() {
     console.log("initWebAssembly");
 
     const response = await fetch(this.#wasmSource);
@@ -55,11 +55,8 @@ class Game {
   }
 
   async init() {
-    const game = new Game("game");
-
-    console.log("before initWebAssembly");
-    await game.initWebAssembly();
-    game.#wasm.exports.init();
+    await this.#initWebAssembly();
+    this.#wasm.exports.init();
   }
 
   #assertString(value) {
@@ -67,8 +64,14 @@ class Game {
       throw new Error(`Expected a string, but received ${typeof value}`);
   }
 
+  afterInit() {
+    this.#wasm.exports.afterInit();
+  }
+
   // vga.hpp
   #vgaFlush() {
+    console.log("vgaFlush");
+
     const surfacePtr = this.#wasm.exports.getSurfacePtr();
     const imageData = new Uint8ClampedArray(
       this.#wasm.exports.memory.buffer,
@@ -88,8 +91,9 @@ class Game {
 async function main() {
   const game = new Game("game");
   await game.init();
+  game.afterInit();
 
-  game.draw();
+  // game.draw();
 }
 
 // Entry point
