@@ -1,3 +1,4 @@
+#pragma once
 #include "../posit-92.hpp"
 
 const word
@@ -23,9 +24,9 @@ void cls(longword colour) {
 
   for (int i=0; i < vgaWidth * vgaHeight; i++) {
     // RGBA
-    surface[i * 4] = 0x64;
-    surface[i * 4 + 1] = 0x95;
-    surface[i * 4 + 2] = 0xED;
-    surface[i * 4 + 3] = 0xFF;
+    surface[i * 4] = r;
+    surface[i * 4 + 1] = g;
+    surface[i * 4 + 2] = b;
+    surface[i * 4 + 3] = a;
   }
 }
