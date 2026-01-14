@@ -34,16 +34,10 @@ const importObject = {
 
 async function initWebAssembly() {
   const response = await fetch(wasmSource);
-  const result = WebAssembly.instantiate(response.buffer, importObject);
+  const bytes = await response.arrayBuffer();
+  const result = WebAssembly.instantiate(bytes, importObject);
   wasm = result.instance
 }
-
-// Library
-mergeInto(LibraryManager.library, {
-  vgaFlush: () => {
-    importObject.env.vgaFlush()
-  }
-})
 
 // Entry point
 canvas = document.getElementById(canvasID);
@@ -51,3 +45,6 @@ if (canvas == null)
   throw new Error(`Couldn't find canvasID \"${ canvasID }\"`);
 
 ctx = canvas.getContext("2d");
+
+await initWebAssembly();
+wasm.exports.init();
