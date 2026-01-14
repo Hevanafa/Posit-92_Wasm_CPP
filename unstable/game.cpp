@@ -15,7 +15,6 @@
 
 extern "C" {
   extern void signalDone();
-  extern void vgaFlush();
 }
 
 const byte
@@ -51,6 +50,8 @@ export void update() {
 
 export void draw() {
   double x, y;
+
+  panicHalt("Test panic!");
 
   cls(0xFF6495ED);
 

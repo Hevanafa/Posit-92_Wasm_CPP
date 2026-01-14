@@ -9,6 +9,10 @@ const longword bufferSize = vgaWidth * vgaHeight * 4;
 
 PByte surface = nullptr;
 
+extern "C" {
+  extern void vgaFlush();
+}
+
 export PByte getSurfacePtr() { return surface; }
 
 void initBuffer() {
