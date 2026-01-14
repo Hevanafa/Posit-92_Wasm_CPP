@@ -1,5 +1,5 @@
 #pragma once
-#include "../posit-92.hpp"
+#include "pascal_compat.hpp"
 
 const word
   vgaWidth = 320,

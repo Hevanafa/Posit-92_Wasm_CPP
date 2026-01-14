@@ -1,8 +1,8 @@
 #include <emscripten.h>
 #include <stdint.h>
 
-#include "posit-92.hpp"
-#include "includes\vga.h"
+#include "includes/pascal_compat.hpp"
+#include "includes/vga.hpp"
 
 extern "C" {
   extern void signalDone();

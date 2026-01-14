@@ -131,5 +131,3 @@ function getTimer: double; external 'env' name 'getTimer';
 ```
 
 But with Emscripten (C++), I should use its mechanism willy-nilly, in order to be able to reuse my glue code from Posit-92 Wasm.  This approach is better than having to write inline JS for everything
-
-
