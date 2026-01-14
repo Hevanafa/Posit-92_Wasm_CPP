@@ -26,7 +26,7 @@ class Game {
       // Emscripten
       emscripten_notify_memory_growth: (memoryIndex) => {},
 
-      vgaFlush: () => this.#vgaFlush.bind(this)
+      vgaFlush: this.#vgaFlush.bind(this)
     }
   }
 
@@ -93,7 +93,7 @@ async function main() {
   await game.init();
   game.afterInit();
 
-  // game.draw();
+  game.draw();
 }
 
 // Entry point
