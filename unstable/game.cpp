@@ -6,6 +6,7 @@
 #include "includes/vga.hpp"
 #include "includes/keyboard.hpp"
 #include "includes/graphics.hpp"
+#include "includes/timing.hpp"
 
 extern "C" {
   extern void signalDone();
@@ -17,8 +18,9 @@ const byte
 
 const longword white = 0xFFFFFFFF;
 
-// Game state
+// Game state variables
 double angle = 0.0;
+double gameTime = 0.0;
 
 export void cleanup() {
   
@@ -26,14 +28,20 @@ export void cleanup() {
 
 export void init() {
   initBuffer();
+  initDeltaTime();
 }
 
 export void afterInit() {
-
+  gameTime = 0.0;
 }
 
 export void update() {
+  updateDeltaTime();
+
   if (isKeyDown(SC_ESC)) signalDone();
+
+  // Update your game state here
+  gameTime += dt;
 }
 
 export void draw() {
