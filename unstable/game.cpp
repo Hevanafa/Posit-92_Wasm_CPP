@@ -9,6 +9,8 @@ extern "C" {
   extern void vgaFlush();
 }
 
+const longword White = 0xFFFFFFFF;
+
 export void cleanup() {
   
 }
@@ -23,6 +25,7 @@ export void update() {
 
 export void draw() {
   cls(0xFF6495ED);
+  pset(10, 10, White);
 
   vgaFlush();
 }

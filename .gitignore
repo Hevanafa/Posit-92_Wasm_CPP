@@ -8,3 +8,4 @@ dist/
 *.wasm
 
 prototype/*.ts
+unstable/*.ts
