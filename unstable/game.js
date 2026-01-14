@@ -218,7 +218,7 @@ class Game {
   async loadAssets() {
     let handle = 0;
 
-    handle = await this.loadImage("assets/images/8x8.png");
+    handle = await this.loadImage("assets/images/CGA8x8.png");
     this.wasmInstance.exports.setImgCGA8x8(handle);
   }
 }
