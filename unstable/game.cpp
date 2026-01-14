@@ -28,6 +28,7 @@ export void draw() {
   cls(0xFF6495ED);
   // pset(10, 10, White);
   vline(10, 10, 30, White);
+  hline(10, 30, 10, White);
 
   vgaFlush();
 }

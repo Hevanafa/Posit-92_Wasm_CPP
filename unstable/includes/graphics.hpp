@@ -13,6 +13,28 @@ longword solidify(const longword colour) {
     : colour;
 }
 
+void hline(
+  smallint x0, smallint x1, smallint y,
+  const longword colour)
+{
+  smallint x;
+
+  if (getAlpha(colour) == 0) return;
+  longword solid = solidify(colour);
+
+  if ((y < 0) || (y >= vgaHeight)) return;
+  if (x1 < x0) {
+    x = x0; x0 = x1; x1 = x;
+  }
+
+  if (x0 < 0) x0 = 0;
+  if (x1 >= vgaWidth) x1 = vgaWidth - 1;
+  if (x0 > x1) return;
+
+  for (x = x0; x <= x1; x++)
+    unsafePset(x, y, solid);
+}
+
 void vline(
   smallint x, smallint y0, smallint y1,
   const longword colour)
@@ -49,7 +71,7 @@ void line(smallint x0, smallint y0, smallint x1, smallint y1, longword colour) {
   }
 
   if (y0 == y1) {
-    // hline(x0, x1, y0, solid);
+    hline(x0, x1, y0, solid);
     return;
   }
 
