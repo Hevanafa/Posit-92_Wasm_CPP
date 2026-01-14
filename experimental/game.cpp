@@ -26,5 +26,3 @@ export void draw() {
 
   vgaFlush();
 }
-
-int main() { return 0; }
