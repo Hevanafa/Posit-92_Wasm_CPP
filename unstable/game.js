@@ -1,63 +1,98 @@
 "use strict";
 
-const vgaWidth = 320, vgaHeight = 200;
+class Game {
 
-const canvasID = "game";
-const wasmSource = "game.wasm";
+  #wasmSource = "game.wasm";
 
-let wasm = null;
-/**
- * @type {HTMLCanvasElement}
- */
-let canvas;
-let ctx;
+  #vgaWidth = 320;
+  #vgaHeight = 200;
 
-const importObject = {
-  env: {
-    // Emscripten
-    emscripten_notify_memory_growth: (memoryIndex) => {},
+  /**
+   * @type {HTMLCanvasElement}
+   */
+  #canvas;
+  /**
+   * @type {CanvasRenderingContext2D}
+   */
+  #ctx;
 
-    vgaFlush: () => {
-      console.log("vgaFlush call");
+  /**
+   * @type {WebAssembly.Instance}
+   */
+  #wasm;
 
-      const surfacePtr = wasm.exports.getSurfacePtr();
-      const imageData = new Uint8ClampedArray(
-        wasm.exports.memory.buffer,
-        surfacePtr,
-        vgaWidth * vgaHeight * 4
-      );
+  #importObject = {
+    env: {
+      // Emscripten
+      emscripten_notify_memory_growth: (memoryIndex) => {},
 
-      const imgData = new ImageData(imageData, vgaWidth, vgaHeight);
-
-      ctx.putImageData(imgData, 0, 0);
+      vgaFlush: () => this.#vgaFlush.bind(this)
     }
   }
+
+  constructor(canvasID) {
+    if (canvasID == null)
+      throw new Error("canvasID is required!");
+
+    this.#assertString(canvasID);
+
+    this.#canvas = document.getElementById(canvasID);
+    if (this.#canvas == null)
+      throw new Error(`Couldn't find canvasID \"${ canvasID }\"`);
+
+    this.#ctx = this.#canvas.getContext("2d");
+  }
+
+  async initWebAssembly() {
+    console.log("initWebAssembly");
+
+    const response = await fetch(this.#wasmSource);
+    const bytes = await response.arrayBuffer();
+    const result = await WebAssembly.instantiate(bytes, this.#importObject);
+    this.#wasm = result.instance;
+
+    console.log("wasm?", this.#wasm);
+  }
+
+  async init() {
+    const game = new Game("game");
+
+    console.log("before initWebAssembly");
+    await game.initWebAssembly();
+    game.#wasm.exports.init();
+  }
+
+  #assertString(value) {
+    if (typeof value != "string")
+      throw new Error(`Expected a string, but received ${typeof value}`);
+  }
+
+  // vga.hpp
+  #vgaFlush() {
+    const surfacePtr = this.#wasm.exports.getSurfacePtr();
+    const imageData = new Uint8ClampedArray(
+      this.#wasm.exports.memory.buffer,
+      surfacePtr,
+      this.#vgaWidth * this.#vgaHeight * 4
+    );
+
+    const imgData = new ImageData(imageData, this.#vgaWidth, this.#vgaHeight);
+
+    this.#ctx.putImageData(imgData, 0, 0);
+  }
+
+  update() { this.#wasm.exports.update(); }
+  draw() { this.#wasm.exports.draw(); }
 }
 
-async function initWebAssembly() {
-  console.log("initWebAssembly");
+async function main() {
+  const game = new Game("game");
+  await game.init();
 
-  const response = await fetch(wasmSource);
-  const bytes = await response.arrayBuffer();
-  const result = await WebAssembly.instantiate(bytes, importObject);
-  wasm = result.instance
-
-  console.log("wasm?", wasm);
+  game.draw();
 }
 
 // Entry point
-async function init() {
-  console.log("init");
-
-  canvas = document.getElementById(canvasID);
-  if (canvas == null)
-    throw new Error(`Couldn't find canvasID \"${ canvasID }\"`);
-
-  ctx = canvas.getContext("2d");
-
-  console.log("before initWebAssembly");
-  await initWebAssembly();
-  wasm.exports.init();
-
-  wasm.exports.draw();
+function play() {
+  main()
 }
