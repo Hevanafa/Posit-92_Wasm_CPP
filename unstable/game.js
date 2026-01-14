@@ -70,7 +70,7 @@ class Game {
 
   // vga.hpp
   #vgaFlush() {
-    console.log("vgaFlush");
+    // console.log("vgaFlush");
 
     const surfacePtr = this.#wasm.exports.getSurfacePtr();
     const imageData = new Uint8ClampedArray(
@@ -88,12 +88,38 @@ class Game {
   draw() { this.#wasm.exports.draw(); }
 }
 
+const TargetFPS = 60;
+const FrameTime = 1000 / 60.0;
+/**
+ * in milliseconds
+ */
+let lastFrameTime = 0.0;
+
+var done = false;
+
 async function main() {
   const game = new Game("game");
   await game.init();
   game.afterInit();
 
-  game.draw();
+  function loop(currentTime) {
+    if (done) {
+      game.cleanup();
+      return;
+    }
+
+    const elapsed = currentTime - lastFrameTime;
+
+    if (elapsed >= FrameTime) {
+      lastFrameTime = currentTime - (elapsed % FrameTime);  // Carry over extra time
+      game.update();
+      game.draw();
+    }
+
+    requestAnimationFrame(loop)
+  }
+
+  requestAnimationFrame(loop)
 }
 
 // Entry point

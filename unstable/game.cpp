@@ -1,5 +1,6 @@
 #include <emscripten.h>
 #include <stdint.h>
+#include <math.h>
 
 #include "includes/pascal_compat.hpp"
 #include "includes/vga.hpp"
@@ -12,6 +13,9 @@ extern "C" {
 
 const longword white = 0xFFFFFFFF;
 
+// Game state
+double angle = 0.0;
+
 export void cleanup() {
   
 }
@@ -21,7 +25,7 @@ export void init() {
 }
 
 export void afterInit() {
-  
+
 }
 
 export void update() {
@@ -29,12 +33,14 @@ export void update() {
 }
 
 export void draw() {
-  cls(0xFF6495ED);
-  // pset(10, 10, White);
-  vline(10, 10, 30, white);
-  hline(10, 30, 10, white);
+  double x, y;
 
-  line(10, 10, 30, 30, white);
+  cls(0xFF6495ED);
+
+  angle += 0.1667;
+  x = 50 + sin(angle) * 10;
+  y = 50 + cos(angle) * 10;
+  line(50, 50, (smallint) x, (smallint) y, white);
 
   vgaFlush();
 }
