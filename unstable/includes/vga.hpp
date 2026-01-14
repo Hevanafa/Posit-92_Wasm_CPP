@@ -1,4 +1,5 @@
 #pragma once
+
 #include "pascal_compat.hpp"
 
 const word
