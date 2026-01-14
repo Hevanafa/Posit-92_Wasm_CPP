@@ -41,7 +41,7 @@ smallint findEmptyImageRefSlot() {
   return -1;
 }
 
-void registerImageRef(const longint imgHandle, const PByte dataPtr, const smallint w, const smallint h) {
+export void registerImageRef(const longint imgHandle, const PByte dataPtr, const smallint w, const smallint h) {
   smallint idx = findEmptyImageRefSlot();
 
   if (idx < 0) return;
