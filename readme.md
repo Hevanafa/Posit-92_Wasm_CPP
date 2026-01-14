@@ -2,7 +2,7 @@
 
 C++ subset port of my [Posit-92 Wasm](https://github.com/Hevanafa/Posit-92_Wasm) game engine
 
-The glue code is based on `hello_quick` demo, so it's experimental
+The glue code (not prototype) is based on `hello_quick` demo, so it's experimental
 
 ## Workflow in General
 
@@ -77,7 +77,10 @@ The **prototype** version has a few key files:
   
   This contains the bare minimum to get WebAssembly running, which you can scroll down to find `init()`
 
-- **index.html** - The HTML entry point, which calls `init()` in **game.js**
+- **index.html**
+  
+  The HTML entry point, which calls `init()` in **game.js**
+
 - **library.js**
   
   This contains stub functions, which are used only during compile time. You can make sure that the functions with the same name are available in `game.cpp`, which have `extern void` in the signature
@@ -86,6 +89,6 @@ The **prototype** version has a few key files:
 
 Also the build scripts:
 
-- compile.ts
-- run.ts
-- server.ts
+- **compile.ts** - Compiles `game.cpp` to `game.wasm`
+- **run.ts** - Calls `server.ts`
+- **server.ts** - A basic server code that starts on `localhost:8008`
