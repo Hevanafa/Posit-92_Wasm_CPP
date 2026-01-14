@@ -51,11 +51,9 @@ export void update() {
 export void draw() {
   double x, y;
 
-  panicHalt("Test panic!");
-
   cls(0xFF6495ED);
 
-  spr(imgCGA8x8, 0, 0);
+  sprRegion(imgCGA8x8, 16, 16, 8, 8, 10, 10);
 
   angle += 0.1667;
   x = vgaWidth / 2 + sin(angle) * 10;

@@ -39,3 +39,38 @@ void spr(const longint imgHandle, const smallint x, const smallint y) {
     unsafePset(x + px, y + py, colour);
   }
 }
+
+void sprRegion(
+  const longint imgHandle,
+  const smallint srcX, const smallint srcY, const smallint srcW, const smallint srcH,
+  const smallint destX, const smallint destY)
+{
+  PImageRef image;
+  smallint a, b;
+  smallint sx, sy;
+  longint srcPos;
+  byte alpha;
+  longword colour;
+
+  if (!isImageSet(imgHandle)) return;
+
+  image = getImagePtr(imgHandle);
+
+  // for b:=0 to srcH - 1 do
+  // for a:=0 to srcW - 1 do begin
+  for (b = 0; b < srcH; b++)
+  for (a = 0; a < srcW; a++) {
+    if ((destX + a >= vgaWidth) || (destX + a < 0)
+      || (destY + b >= vgaHeight) || (destY + b < 0)) continue;
+
+    sx = srcX + a;
+    sy = srcY + b;
+    srcPos = (sx + sy * image->width) * 4;
+
+    alpha = image->dataPtr[srcPos + 3];
+    if (alpha < 255) continue;
+
+    colour = unsafeSprPget(image, sx, sy);
+    unsafePset(destX + a, destY + b, colour);
+  }
+}
