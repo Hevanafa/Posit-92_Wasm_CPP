@@ -16,7 +16,7 @@ I chose this approach because it gives me more control & minimal bloat -- only l
 2. VSCode (or any text editor that supports editing C++ code)
 3. [Bun](https://bun.com/) for build scripts
 
-I'm using a Windows 110 machine to compile & run this project
+I'm using a Windows 10 machine to compile & run this project
 
 ## Setup & Installation
 
