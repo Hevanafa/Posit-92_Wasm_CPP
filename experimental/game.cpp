@@ -4,10 +4,10 @@
 #include "posit-92.hpp"
 #include "includes\vga.h"
 
-extern "C" {
-  void signalDone();
-  void vgaFlush();
-}
+// extern "C" {
+//   extern void signalDone();
+//   extern void vgaFlush();
+// }
 
 export void cleanup() {
   
@@ -24,5 +24,7 @@ export void update() {
 export void draw() {
   cls(0xFF6495ED);
 
-  vgaFlush();
+  // vgaFlush();
 }
+
+int main() { return 0; }
