@@ -7,6 +7,7 @@
 	"settings": {
 		"C_Cpp.default.includePath": [
 			"E:\\emsdk\\upstream\\emscripten\\cache\\sysroot\\include"
-		]
+		],
+		"C_Cpp.default.compilerPath": "E:/emsdk/upstream/emscripten/emcc.bat"
 	}
 }

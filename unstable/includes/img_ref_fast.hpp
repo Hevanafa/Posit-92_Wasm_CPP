@@ -1,6 +1,7 @@
 #pragma once
 
 #include "pascal_compat.hpp"
+#include "conv.hpp"
 #include "img_ref.hpp"
 #include "vga.hpp"
 #include "panic.hpp"
@@ -18,13 +19,11 @@ void spr(const longint imgHandle, const smallint x, const smallint y) {
   // data = PByte(image^.dataPtr);
   // writeLog('offset: ' + i32str(offset));
 
-  if (image->allocSize = 0)
-    panicHalt('imgHandle ' + i32str(imgHandle) + ' allocSize is 0!');
+  if (image->allocSize == 0)
+    panicHalt("imgHandle " + i32str(imgHandle) + " allocSize is 0!");
   
   // writeLog('allocSize: ' + i32str(image^.allocSize));
 
-  // for py=0 to image^.height - 1
-  // for px=0 to image^.width - 1 {
   for (py = 0; py < image->height; py++)
   for (px = 0; px < image->width; px++) {
     if ((x + px >= vgaWidth) || (x + px < 0)
