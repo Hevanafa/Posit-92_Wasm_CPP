@@ -6,3 +6,5 @@ out/
 dist/
 
 *.wasm
+
+prototype/*.ts
