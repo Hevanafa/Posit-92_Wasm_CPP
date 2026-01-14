@@ -7,6 +7,8 @@
 #include "includes/keyboard.hpp"
 #include "includes/graphics.hpp"
 #include "includes/timing.hpp"
+#include "includes/img_ref.hpp"
+#include "includes/wasm_heap.hpp"
 
 #include "assets.hpp"
 
@@ -50,6 +52,8 @@ export void draw() {
   double x, y;
 
   cls(0xFF6495ED);
+
+  
 
   angle += 0.1667;
   x = vgaWidth / 2 + sin(angle) * 10;

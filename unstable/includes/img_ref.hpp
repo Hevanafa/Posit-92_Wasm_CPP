@@ -15,15 +15,19 @@ typedef struct {
 const smallint
   MaxImageRefs = 256;
 
-TImageRef imageRefs[MaxImageRefs];  // index 0 is unused
+TImageRef imageRefs[MaxImageRefs + 1];  // index 0 is unused
 
 bool isImageSet(const longint imgHandle) {
-  if (imgHandle <= 0) return;
+  if (imgHandle < 0 || imgHandle > MaxImageRefs)
+    return false;
 
   return imageRefs[imgHandle].allocSize > 0;
 }
 
 PImageRef getImagePtr(const longint imgHandle) {
+  if (imgHandle < 1 || imgHandle > MaxImageRefs)
+    return nullptr;
+
   return &imageRefs[imgHandle];
 }
 
@@ -40,7 +44,8 @@ smallint findEmptyImageRefSlot() {
 void registerImageRef(const longint imgHandle, const PByte dataPtr, const smallint w, const smallint h) {
   smallint idx = findEmptyImageRefSlot();
 
-  if (idx < 0) panicHalt('Image ref pool is full!');
+  if (idx < 0) return;
+  // TODO: if (idx < 0) panicHalt('Image ref pool is full!');
 
   imageRefs[imgHandle].width = w;
   imageRefs[imgHandle].height = h;
