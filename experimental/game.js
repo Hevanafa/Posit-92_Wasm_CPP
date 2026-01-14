@@ -58,4 +58,6 @@ async function init() {
   console.log("before initWebAssembly");
   await initWebAssembly();
   wasm.exports.init();
+
+  wasm.exports.draw();
 }
