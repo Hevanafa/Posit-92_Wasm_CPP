@@ -8,5 +8,6 @@
 
 mergeInto(LibraryManager.library, {
   signalDone: () => {},
+  isKeyDown: (n) => {},
   vgaFlush: () => {}
 })

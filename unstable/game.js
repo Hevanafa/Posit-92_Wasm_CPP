@@ -1,6 +1,10 @@
 "use strict";
 
 class Game {
+  ScancodeMap = {
+    "Escape": 0x01
+    // Add more scancodes as necessary
+  };
 
   #wasmSource = "game.wasm";
 
@@ -25,6 +29,9 @@ class Game {
     env: {
       // Emscripten
       emscripten_notify_memory_growth: (memoryIndex) => {},
+
+      isKeyDown: this.#isKeyDown.bind(this),
+      signalDone: this.#signalDone.bind(this),
 
       vgaFlush: this.#vgaFlush.bind(this)
     }
@@ -57,6 +64,9 @@ class Game {
   async init() {
     await this.#initWebAssembly();
     this.#wasm.exports.init();
+
+    this.#initKeyboard();
+    // this.#initMouse();
   }
 
   #assertString(value) {
@@ -66,6 +76,44 @@ class Game {
 
   afterInit() {
     this.#wasm.exports.afterInit();
+  }
+
+  /**
+   * Called when `done` is `true`
+   */
+  cleanup() {
+    console.log("cleanup")
+    // this.#showCursor();
+  }
+
+  // KEYBOARD.PAS
+  heldScancodes = new Set();
+
+  #initKeyboard() {
+    const ScancodeMap = this.ScancodeMap;
+    
+    window.addEventListener("keydown", e => {
+      if (e.repeat) return;
+
+      const scancode = ScancodeMap[e.code];
+      if (scancode) {
+        this.heldScancodes.add(scancode);
+        e.preventDefault();
+      }
+    })
+
+    window.addEventListener("keyup", e => {
+      const scancode = ScancodeMap[e.code];
+      if (scancode) this.heldScancodes.delete(scancode)
+    })
+  }
+
+  #isKeyDown(scancode) {
+    return this.heldScancodes.has(scancode)
+  }
+
+  #signalDone() {
+    done = true
   }
 
   // vga.hpp

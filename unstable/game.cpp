@@ -4,12 +4,16 @@
 
 #include "includes/pascal_compat.hpp"
 #include "includes/vga.hpp"
+#include "includes/keyboard.hpp"
 #include "includes/graphics.hpp"
 
 extern "C" {
   extern void signalDone();
   extern void vgaFlush();
 }
+
+const byte
+  SC_ESC = 0x01;
 
 const longword white = 0xFFFFFFFF;
 
@@ -29,7 +33,7 @@ export void afterInit() {
 }
 
 export void update() {
-
+  if (isKeyDown(SC_ESC)) signalDone();
 }
 
 export void draw() {
