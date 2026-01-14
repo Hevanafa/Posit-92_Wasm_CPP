@@ -12,7 +12,9 @@ The glue code is based on `hello_quick` demo, so it's experimental
 
 I'm using a Windows 110 machine to compile & run this project
 
-## Emscripten Setup
+## Setup & Installation
+
+### Emscripten Setup
 
 1. Install Emscripten
 
@@ -43,7 +45,7 @@ emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 3.1.73 (a
 Copyright (C) 2014 the Emscripten authors (see AUTHORS.txt)
 ```
 
-## Microsoft's C++ Extension Setup for VSCode
+### Microsoft's C++ Extension Setup for VSCode
 
 1. Install this one: [C/C++ by Microsoft](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
 
@@ -54,3 +56,23 @@ Copyright (C) 2014 the Emscripten authors (see AUTHORS.txt)
    ```
 
    The path depends on where you installed `emsdk`
+
+## Workflow in General
+
+The workflow that I use is different. It's much simpler from Emscripten's default way of doing
+
+I chose this approach because it gives me more control & minimal bloat -- only less than 1 KB instead of Emscripten's default glue code, which is around 50 KB
+
+## Project Structure
+
+The prototype version has a few key files:
+- **game.cpp** - The primary file / entry point
+- **game.js**
+  This contains the bare minimum to get WebAssembly running, which you can scroll down to find `init()`
+- index.html
+- library.js
+
+Also the build scripts:
+- compile.ts
+- run.ts
+- server.ts
