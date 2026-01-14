@@ -4,6 +4,12 @@ C++ subset port of my [Posit-92 Wasm](https://github.com/Hevanafa/Posit-92_Wasm)
 
 The glue code is based on `hello_quick` demo, so it's experimental
 
+## Workflow in General
+
+The workflow that I use is different. It's much simpler from Emscripten's default way of doing
+
+I chose this approach because it gives me more control & minimal bloat -- only less than 1 KB instead of Emscripten's default glue code, which is around 50 KB
+
 ## Requirements
 
 1. Emscripten
@@ -57,22 +63,29 @@ Copyright (C) 2014 the Emscripten authors (see AUTHORS.txt)
 
    The path depends on where you installed `emsdk`
 
-## Workflow in General
-
-The workflow that I use is different. It's much simpler from Emscripten's default way of doing
-
-I chose this approach because it gives me more control & minimal bloat -- only less than 1 KB instead of Emscripten's default glue code, which is around 50 KB
-
 ## Project Structure
 
-The prototype version has a few key files:
-- **game.cpp** - The primary file / entry point
+The **prototype** version has a few key files:
+
+- **game.cpp**
+  
+  The primary file / entry point
+
+  `export` is actually a macro, not a bareword
+
 - **game.js**
+  
   This contains the bare minimum to get WebAssembly running, which you can scroll down to find `init()`
-- index.html
-- library.js
+
+- **index.html** - The HTML entry point, which calls `init()` in **game.js**
+- **library.js**
+  
+  This contains stub functions, which are used only during compile time. You can make sure that the functions with the same name are available in `game.cpp`, which have `extern void` in the signature
+  
+  These functions are used to trick the compiler into thinking that the actual implementation is available from it, but those functions are actually available in `importObject`, which is accessible from WebAssembly instantiation
 
 Also the build scripts:
+
 - compile.ts
 - run.ts
 - server.ts
