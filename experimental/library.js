@@ -6,5 +6,5 @@
 
 mergeInto(LibraryManager.library, {
   signalDone: () => {},
-  vgaFlush: () => {}
+  vgaFlush: () => { console.log("vgaFlush from library!") }
 })

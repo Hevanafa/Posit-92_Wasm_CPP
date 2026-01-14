@@ -18,6 +18,8 @@ const importObject = {
     emscripten_notify_memory_growth: (memoryIndex) => {},
 
     vgaFlush: () => {
+      console.log("vgaFlush call");
+
       const surfacePtr = wasm.exports.getSurfacePtr();
       const imageData = new Uint8ClampedArray(
         wasm.exports.memory.buffer,
@@ -33,18 +35,27 @@ const importObject = {
 }
 
 async function initWebAssembly() {
+  console.log("initWebAssembly");
+
   const response = await fetch(wasmSource);
   const bytes = await response.arrayBuffer();
-  const result = WebAssembly.instantiate(bytes, importObject);
+  const result = await WebAssembly.instantiate(bytes, importObject);
   wasm = result.instance
+
+  console.log("wasm?", wasm);
 }
 
 // Entry point
-canvas = document.getElementById(canvasID);
-if (canvas == null)
-  throw new Error(`Couldn't find canvasID \"${ canvasID }\"`);
+async function init() {
+  console.log("init");
 
-ctx = canvas.getContext("2d");
+  canvas = document.getElementById(canvasID);
+  if (canvas == null)
+    throw new Error(`Couldn't find canvasID \"${ canvasID }\"`);
 
-await initWebAssembly();
-wasm.exports.init();
+  ctx = canvas.getContext("2d");
+
+  console.log("before initWebAssembly");
+  await initWebAssembly();
+  wasm.exports.init();
+}
