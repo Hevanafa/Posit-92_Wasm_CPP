@@ -24,6 +24,12 @@ class Game {
    * @type {WebAssembly.Instance}
    */
   #wasm;
+  get wasmInstance() { return this.#wasm }
+
+  /**
+   * Used in getTimer
+   */
+  #midnightOffset = 0;
 
   #importObject = {
     env: {
@@ -32,6 +38,10 @@ class Game {
 
       isKeyDown: this.#isKeyDown.bind(this),
       signalDone: this.#signalDone.bind(this),
+
+      // Timing
+      getTimer: () => this.#getTimer(),
+      getFullTimer: () => this.#getFullTimer(),
 
       vgaFlush: this.#vgaFlush.bind(this)
     }
@@ -50,6 +60,12 @@ class Game {
     this.#ctx = this.#canvas.getContext("2d");
   }
 
+  #loadMidnightOffset() {
+    const now = new Date();
+    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    this.#midnightOffset = midnight.getTime()
+  }
+
   async #initWebAssembly() {
     console.log("initWebAssembly");
 
@@ -62,6 +78,9 @@ class Game {
   }
 
   async init() {
+    this.#loadMidnightOffset();
+
+    Object.freeze(this.#importObject);
     await this.#initWebAssembly();
     this.#wasm.exports.init();
 
@@ -114,6 +133,15 @@ class Game {
 
   #signalDone() {
     done = true
+  }
+
+  // timing.hpp
+  #getTimer() {
+    return (Date.now() - this.#midnightOffset) / 1000
+  }
+
+  #getFullTimer() {
+    return Date.now() / 1000
   }
 
   // vga.hpp
