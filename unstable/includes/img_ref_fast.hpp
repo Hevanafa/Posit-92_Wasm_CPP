@@ -3,6 +3,7 @@
 #include "pascal_compat.hpp"
 #include "img_ref.hpp"
 #include "vga.hpp"
+#include "panic.hpp"
 
 void spr(const longint imgHandle, const smallint x, const smallint y) {
   PImageRef image;
@@ -15,11 +16,10 @@ void spr(const longint imgHandle, const smallint x, const smallint y) {
 
   image = getImagePtr(imgHandle);
   // data = PByte(image^.dataPtr);
-
   // writeLog('offset: ' + i32str(offset));
-  
-  // if image^.allocSize = 0 then
-  //   panicHalt('imgHandle ' + i32str(imgHandle) + ' allocSize is 0!');
+
+  if (image->allocSize = 0)
+    panicHalt('imgHandle ' + i32str(imgHandle) + ' allocSize is 0!');
   
   // writeLog('allocSize: ' + i32str(image^.allocSize));
 
