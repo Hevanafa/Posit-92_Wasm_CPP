@@ -52,3 +52,12 @@ export void registerImageRef(const longint imgHandle, const PByte dataPtr, const
   imageRefs[imgHandle].allocSize = w * h * 4;
   imageRefs[imgHandle].dataPtr = dataPtr;
 }
+
+longword unsafeSprPget(const PImageRef image, const smallint x, const smallint y) {
+  longword offset = (x + y * image->width) * 4;
+  
+  return (image->dataPtr[offset + 3] << 24)
+    | (image->dataPtr[offset] << 16)
+    | (image->dataPtr[offset + 1] << 8)
+    | image->dataPtr[offset + 2];
+}

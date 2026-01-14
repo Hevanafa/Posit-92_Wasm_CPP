@@ -17,6 +17,7 @@ void spr(const longint imgHandle, const smallint x, const smallint y) {
   // data = PByte(image^.dataPtr);
 
   // writeLog('offset: ' + i32str(offset));
+  
   // if image^.allocSize = 0 then
   //   panicHalt('imgHandle ' + i32str(imgHandle) + ' allocSize is 0!');
   
