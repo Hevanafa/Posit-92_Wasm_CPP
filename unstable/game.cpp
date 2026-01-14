@@ -3,6 +3,7 @@
 
 #include "includes/pascal_compat.hpp"
 #include "includes/vga.hpp"
+#include "includes/graphics.hpp"
 
 extern "C" {
   extern void signalDone();
@@ -25,7 +26,8 @@ export void update() {
 
 export void draw() {
   cls(0xFF6495ED);
-  pset(10, 10, White);
+  // pset(10, 10, White);
+  vline(10, 10, 30, White);
 
   vgaFlush();
 }

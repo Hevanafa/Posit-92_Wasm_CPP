@@ -8,7 +8,7 @@ byte getAlpha(const longword colour) {
 }
 
 longword solidify(const longword colour) {
-  return (colour & 0xFF000000 > 0)
+  return ((colour & 0xFF000000) > 0)
     ? colour | 0xFF000000
     : colour;
 }
@@ -32,7 +32,7 @@ void vline(
   if (y1 >= vgaHeight) y1 = vgaHeight - 1;
   if (y0 > y1) return;
 
-  for (y = y0; y0 <= y1; y++)
+  for (y = y0; y <= y1; y++)
     unsafePset(x, y, solid);
 }
 
