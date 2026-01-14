@@ -9,3 +9,4 @@ dist/
 
 prototype/*.ts
 unstable/*.ts
+!compile.ts

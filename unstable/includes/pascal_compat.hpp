@@ -4,8 +4,11 @@
 
 #define PByte uint8_t*
 
-#define int64 long
-#define longword unsigned int
+#define shortint char
+#define byte unsigned char
 #define smallint short
 #define word unsigned short
-#define byte unsigned char
+#define longint int
+#define longword unsigned int
+#define int64 long
+#define uint64 unsigned long

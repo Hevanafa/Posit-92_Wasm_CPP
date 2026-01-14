@@ -93,6 +93,58 @@ class Game {
       throw new Error(`Expected a string, but received ${typeof value}`);
   }
 
+
+  async loadImageFromURL(url) {
+    if (url == null)
+      throw new Error("loadImageFromURL: url is required");
+
+    this.#assertString(url);
+
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = url
+    })
+  }
+
+  // Used in loadImage
+  #images = [];
+
+  async loadImage(url) {
+    if (url == null)
+      throw new Error("loadImage: url is required");
+
+    this.#assertString(url);
+
+    const img = await this.loadImageFromURL(url);
+
+    // Copy image
+    const tempCanvas = document.createElement("canvas");
+    tempCanvas.width = img.width;
+    tempCanvas.height = img.height;
+    const tempCtx = tempCanvas.getContext("2d");
+    tempCtx.drawImage(img, 0, 0);
+
+    const imageData = tempCtx.getImageData(0, 0, img.width, img.height);
+
+    const wasmMemory = new Uint8Array(this.#wasm.exports.memory.buffer);
+    const byteSize = img.width * img.height * 4;
+    const wasmPtr = this.#wasm.exports.WasmGetMem(byteSize);
+    wasmMemory.set(imageData.data, wasmPtr)
+
+    if (this.#images.length == 0)
+      this.#images.push(null);
+
+    // Register with Wasm pointer
+    const handle = this.#images.length;
+    this.#images.push(imageData);  // Keep data in JS for reference
+    this.#wasm.exports.registerImageRef(handle, wasmPtr, img.width, img.height);
+
+    return handle
+  }
+
+
   afterInit() {
     this.#wasm.exports.afterInit();
   }
@@ -162,6 +214,13 @@ class Game {
 
   update() { this.#wasm.exports.update(); }
   draw() { this.#wasm.exports.draw(); }
+
+  async loadAssets() {
+    let handle = 0;
+
+    handle = await this.loadImage("assets/images/8x8.png");
+    this.wasmInstance.exports.setImgCGA8x8(handle);
+  }
 }
 
 const TargetFPS = 60;
@@ -176,6 +235,7 @@ var done = false;
 async function main() {
   const game = new Game("game");
   await game.init();
+  await game.loadAssets();
   game.afterInit();
 
   function loop(currentTime) {

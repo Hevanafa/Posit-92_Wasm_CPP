@@ -8,6 +8,8 @@
 #include "includes/graphics.hpp"
 #include "includes/timing.hpp"
 
+#include "assets.hpp"
+
 extern "C" {
   extern void signalDone();
   extern void vgaFlush();
