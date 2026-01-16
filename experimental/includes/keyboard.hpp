@@ -3,5 +3,5 @@
 #include "pascal_compat.hpp"
 
 extern "C" {
-  extern bool isKeyDown(const byte scancode);
+  extern bool isKeyDown(const Byte scancode);
 }

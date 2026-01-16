@@ -7,7 +7,7 @@ extern "C" {
 }
 
 void panicHalt(const std::string& msg) {
-  byte msgBuffer[256];
+  Byte msgBuffer[256];
 
   for (word a = 0; a < msg.length(); a++)
     msgBuffer[a] = msg[a];

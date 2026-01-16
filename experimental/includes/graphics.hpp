@@ -3,7 +3,7 @@
 #include "pascal_compat.hpp"
 #include "vga.hpp"
 
-byte getAlpha(const longword colour) {
+Byte getAlpha(const longword colour) {
   return colour >> 24 & 0xFF;
 }
 

@@ -10,7 +10,7 @@ void spr(const longint imgHandle, const smallint x, const smallint y) {
   PImageRef image;
   smallint px, py;
   longword offset;
-  byte a;
+  Byte a;
   longword colour;
 
   if (!isImageSet(imgHandle)) return;
@@ -49,7 +49,7 @@ void sprRegion(
   smallint a, b;
   smallint sx, sy;
   longint srcPos;
-  byte alpha;
+  Byte alpha;
   longword colour;
 
   if (!isImageSet(imgHandle)) return;

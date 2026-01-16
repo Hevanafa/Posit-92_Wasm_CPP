@@ -20,7 +20,7 @@ void initBuffer() {
 }
 
 void cls(longword colour) {
-  byte r, g, b, a;
+  Byte r, g, b, a;
 
   a = colour >> 24 & 0xff;
   r = colour >> 16 & 0xff;
