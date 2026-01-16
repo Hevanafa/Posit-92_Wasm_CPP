@@ -2,10 +2,10 @@
 
 #include "pascal_compat.hpp"
 
-const Word
+Word
   vgaWidth = 320,
   vgaHeight = 200;
-const LongWord bufferSize = vgaWidth * vgaHeight * 4;
+LongWord bufferSize = vgaWidth * vgaHeight * 4;
 
 PByte surface = nullptr;
 
@@ -16,6 +16,14 @@ extern "C" {
 export PByte getSurfacePtr() { return surface; }
 
 void initBuffer() {
+  surface = (PByte) malloc(bufferSize);
+}
+
+void initCustomBuffer(const Word width, const Word height) {
+  vgaWidth = width;
+  vgaHeight = height;
+  bufferSize = vgaWidth * vgaHeight * 4;
+
   surface = (PByte) malloc(bufferSize);
 }
 

@@ -51,7 +51,7 @@ LongWord HSVtoRGB(double h, double s, double v) {
 }
 
 export void init() {
-  initBuffer();
+  initCustomBuffer(128, 128);
 }
 
 export void afterInit() {
