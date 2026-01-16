@@ -16,13 +16,10 @@ async function main() {
   game.hideLoadingOverlay();
   game.wasmInstance.exports.afterInit();
 
-  game.update();
-  game.draw();
-
-  // function loop() {
-  //   game.update();
-  //   game.draw();
-  //   requestAnimationFrame(loop)
-  // }
-  // requestAnimationFrame(loop)
+  function loop() {
+    game.update();
+    game.draw();
+    requestAnimationFrame(loop)
+  }
+  requestAnimationFrame(loop)
 }

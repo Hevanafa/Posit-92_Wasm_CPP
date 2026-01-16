@@ -681,11 +681,7 @@ class Posit92 {
   // VGA.PAS
   flush() { this.#vgaFlush() }
 
-  #once = false;
-  
   #vgaFlush() {
-    // console.log("vgaFlush is called");
-
     const surfacePtr = this.#wasm.exports.getSurfacePtr();
     const imageData = new Uint8ClampedArray(
       this.#wasm.exports.memory.buffer,
@@ -694,13 +690,6 @@ class Posit92 {
     );
 
     const imgData = new ImageData(imageData, this.#vgaWidth, this.#vgaHeight);
-
-    if (!this.#once) {
-      this.#once = true;
-      // console.log("imageData", imageData);
-      console.log("imgData", imgData.data.slice(0, 20).join(" "));
-      console.log("ctx?", this.#ctx)
-    }
 
     this.#ctx.putImageData(imgData, 0, 0);
   }

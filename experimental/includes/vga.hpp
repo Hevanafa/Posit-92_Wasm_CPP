@@ -1,9 +1,6 @@
 #pragma once
 
-#include <emscripten.h>
-
 #include "pascal_compat.hpp"
-#include "logger.hpp"
 
 const Word
   vgaWidth = 320,
@@ -19,7 +16,6 @@ extern "C" {
 export PByte getSurfacePtr() { return surface; }
 
 void initBuffer() {
-  writeLog("initBuffer call");
   surface = (PByte) malloc(bufferSize);
 }
 
