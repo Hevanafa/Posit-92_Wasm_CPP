@@ -26,7 +26,7 @@ async function main() {
   game.hideLoadingOverlay();
   game.wasmInstance.exports.afterInit();
 
-  function loop() {
+  function loop(currentTime) {
     if (done) {
       game.cleanup();
       return
