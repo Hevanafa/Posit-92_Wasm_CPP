@@ -38,6 +38,12 @@ I'm using a Windows 10 machine to compile & run this project
 
    It's either done by `emsdk_env.ps1` or by manually adding the installation path in the Environment Variables
 
+   In my case, it's
+
+   ```powershell
+   E:\emsdk\upstream\emscripten\
+   ```
+
 3. Test if Emscripten actually works
 
    ```powershell
