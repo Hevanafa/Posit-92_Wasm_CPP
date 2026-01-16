@@ -682,6 +682,8 @@ class Posit92 {
   flush() { this.#vgaFlush() }
   
   #vgaFlush() {
+    // console.log("vgaFlush is called");
+
     const surfacePtr = this.#wasm.exports.getSurfacePtr();
     const imageData = new Uint8ClampedArray(
       this.#wasm.exports.memory.buffer,

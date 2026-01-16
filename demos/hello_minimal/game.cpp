@@ -18,7 +18,7 @@ export void update() {
 }
 
 export void draw() {
-  cls(0x101010);
+  cls(0x6495ED);
 
   vgaFlush();
 }
