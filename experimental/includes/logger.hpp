@@ -26,7 +26,7 @@ void writeLog(const std::string& msg) {
   logBuffer[0] = len;
   // for a:=1 to len do
   for (a = 1; a <= len; a++)
-    logBuffer[a] = msg[a];
+    logBuffer[a] = msg[a - 1];
 
   // JS will read logBuffer
   flushLog();
