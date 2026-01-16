@@ -1,15 +1,18 @@
 #pragma once
 
+#include <emscripten.h>
+#include <stdint.h>
+
 #define export extern "C" EMSCRIPTEN_KEEPALIVE
 
-#define PByte uint8_t*
+using PByte = uint8_t*;
 
-#define ShortInt char
-#define Byte unsigned char
-#define SmallInt short
-#define Word unsigned short
-#define LongInt int
-#define LongWord unsigned int
+using ShortInt = char;
+using Byte = unsigned char;
+using SmallInt = short;
+using Word = unsigned short;
+using LongInt = int;
+using LongWord = unsigned int;
 
-#define int64 long
-#define uint64 unsigned long
+using int64 = long;
+using uint64 = unsigned long;
