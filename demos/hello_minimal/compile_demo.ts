@@ -4,12 +4,17 @@ const compilerPath = "E:\\emsdk\\upstream\\emscripten\\emcc.bat";
 const primaryFile = ".\\game.cpp";
 const outputFile = "game.wasm";
 
+// Default exports
+// const exportedFunctions = [
+//   "getSurfacePtr",
+//   "init", "afterInit", "update", "draw",
+//   "WasmGetMem",
+//   // assets
+//   "setImgCGA8x8"
+// ];
+
 const exportedFunctions = [
-  "getSurfacePtr",
-  "init", "afterInit", "update", "draw",
-  "WasmGetMem",
-  // assets
-  "setImgCGA8x8"
+  "init", "afterInit", "update", "draw"
 ];
 
 const commandLine = [
