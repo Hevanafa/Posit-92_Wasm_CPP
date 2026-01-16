@@ -6,9 +6,10 @@
 
 #define ShortInt char
 #define Byte unsigned char
-#define smallint short
-#define word unsigned short
-#define longint int
-#define longword unsigned int
+#define SmallInt short
+#define Word unsigned short
+#define LongInt int
+#define LongWord unsigned int
+
 #define int64 long
 #define uint64 unsigned long

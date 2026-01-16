@@ -2,10 +2,10 @@
 
 #include "pascal_compat.hpp"
 
-const word
+const Word
   vgaWidth = 320,
   vgaHeight = 200;
-const longword bufferSize = vgaWidth * vgaHeight * 4;
+const LongWord bufferSize = vgaWidth * vgaHeight * 4;
 
 PByte surface = nullptr;
 
@@ -19,7 +19,7 @@ void initBuffer() {
   surface = (PByte) malloc(bufferSize);
 }
 
-void cls(longword colour) {
+void cls(LongWord colour) {
   Byte r, g, b, a;
 
   a = colour >> 24 & 0xff;
@@ -36,8 +36,8 @@ void cls(longword colour) {
   }
 }
 
-void unsafePset(smallint x, smallint y, longword colour) {
-  longword offset = (x + y * vgaWidth) * 4;
+void unsafePset(SmallInt x, SmallInt y, LongWord colour) {
+  LongWord offset = (x + y * vgaWidth) * 4;
   // ARGB to RGBA
   surface[offset] = colour & 0x00FF0000 >> 16;
   surface[offset + 1] = colour & 0x0000FF00 >> 8;
@@ -45,7 +45,7 @@ void unsafePset(smallint x, smallint y, longword colour) {
   surface[offset + 3] = colour & 0xFF000000 >> 24;
 }
 
-void pset(smallint x, smallint y, longword colour) {
+void pset(SmallInt x, SmallInt y, LongWord colour) {
   if (x >= vgaWidth || x < 0 || y >= vgaHeight || y < 0) return;
   unsafePset(x, y, colour);
 }

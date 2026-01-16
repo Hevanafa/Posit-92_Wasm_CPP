@@ -3,24 +3,24 @@
 #include "pascal_compat.hpp"
 #include "vga.hpp"
 
-Byte getAlpha(const longword colour) {
+Byte getAlpha(const LongWord colour) {
   return colour >> 24 & 0xFF;
 }
 
-longword solidify(const longword colour) {
+LongWord solidify(const LongWord colour) {
   return ((colour & 0xFF000000) > 0)
     ? colour | 0xFF000000
     : colour;
 }
 
 void hline(
-  smallint x0, smallint x1, smallint y,
-  const longword colour)
+  SmallInt x0, SmallInt x1, SmallInt y,
+  const LongWord colour)
 {
-  smallint x;
+  SmallInt x;
 
   if (getAlpha(colour) == 0) return;
-  longword solid = solidify(colour);
+  LongWord solid = solidify(colour);
 
   if ((y < 0) || (y >= vgaHeight)) return;
   if (x1 < x0) {
@@ -36,15 +36,15 @@ void hline(
 }
 
 void vline(
-  smallint x, smallint y0, smallint y1,
-  const longword colour)
+  SmallInt x, SmallInt y0, SmallInt y1,
+  const LongWord colour)
 {
-  smallint y, temp;
+  SmallInt y, temp;
 
   if (getAlpha(colour) == 0) return;
   if ((x < 0) || (x >= vgaWidth)) return;
 
-  longword solid = solidify(colour);
+  LongWord solid = solidify(colour);
 
   if (y1 < y0) {
     temp = y0; y0 = y1; y1 = temp;
@@ -58,9 +58,9 @@ void vline(
     unsafePset(x, y, solid);
 }
 
-void line(smallint x0, smallint y0, smallint x1, smallint y1, longword colour) {
-  smallint dx, dy, sx, sy, err, e2;
-  longword solid;
+void line(SmallInt x0, SmallInt y0, SmallInt x1, SmallInt y1, LongWord colour) {
+  SmallInt dx, dy, sx, sy, err, e2;
+  LongWord solid;
 
   if (getAlpha(colour) == 0) return;
   solid = solidify(colour);

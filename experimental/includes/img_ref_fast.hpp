@@ -6,12 +6,12 @@
 #include "vga.hpp"
 #include "panic.hpp"
 
-void spr(const longint imgHandle, const smallint x, const smallint y) {
+void spr(const LongInt imgHandle, const SmallInt x, const SmallInt y) {
   PImageRef image;
-  smallint px, py;
-  longword offset;
+  SmallInt px, py;
+  LongWord offset;
   Byte a;
-  longword colour;
+  LongWord colour;
 
   if (!isImageSet(imgHandle)) return;
 
@@ -41,16 +41,16 @@ void spr(const longint imgHandle, const smallint x, const smallint y) {
 }
 
 void sprRegion(
-  const longint imgHandle,
-  const smallint srcX, const smallint srcY, const smallint srcW, const smallint srcH,
-  const smallint destX, const smallint destY)
+  const LongInt imgHandle,
+  const SmallInt srcX, const SmallInt srcY, const SmallInt srcW, const SmallInt srcH,
+  const SmallInt destX, const SmallInt destY)
 {
   PImageRef image;
-  smallint a, b;
-  smallint sx, sy;
-  longint srcPos;
+  SmallInt a, b;
+  SmallInt sx, sy;
+  LongInt srcPos;
   Byte alpha;
-  longword colour;
+  LongWord colour;
 
   if (!isImageSet(imgHandle)) return;
 

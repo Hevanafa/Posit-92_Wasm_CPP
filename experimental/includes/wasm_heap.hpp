@@ -6,9 +6,9 @@
 #include "pascal_compat.hpp"
 
 // Required for Pascal compatibility
-export void initHeap(const longword startAddr, const longword heapSize) {
+export void initHeap(const LongWord startAddr, const LongWord heapSize) {
 }
 
-export PByte WasmGetMem(const longword bytes) {
+export PByte WasmGetMem(const LongWord bytes) {
   return (PByte) malloc(bytes);
 }
