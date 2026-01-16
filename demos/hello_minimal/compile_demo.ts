@@ -14,6 +14,7 @@ const outputFile = "game.wasm";
 // ];
 
 const exportedFunctions = [
+  "getLogBuffer",  // Logger
   "getSurfacePtr",  // VGA
   "initHeap",  // WasmHeap
   "init", "afterInit", "update", "draw"
