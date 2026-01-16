@@ -1,5 +1,3 @@
-#include <emscripten.h>
-
 #include "pascal_compat.hpp"
 
 #include "logger.hpp"
@@ -18,8 +16,6 @@ export void update() {
 }
 
 export void draw() {
-  Word a;
-
   cls(0xFF6495ED);
 
   vgaFlush();

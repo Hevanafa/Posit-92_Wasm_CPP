@@ -1,17 +1,15 @@
 #pragma once
 
-#include <stdint.h>
 #include "pascal_compat.hpp"
 #include "panic.hpp"
 
-typedef struct {
+using PImageRef = TImageRef*;
+struct TImageRef {
   SmallInt width;
   SmallInt height;
   LongWord allocSize;
-  const PByte dataPtr;
-} TImageRef;
-
-#define PImageRef TImageRef*
+  PByte dataPtr;
+};
 
 const SmallInt
   MaxImageRefs = 256;

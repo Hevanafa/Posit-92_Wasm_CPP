@@ -1,8 +1,5 @@
 #pragma once
 
-#include <emscripten.h>
-#include <stdint.h>
-
 #include "pascal_compat.hpp"
 
 // Required for Pascal compatibility
