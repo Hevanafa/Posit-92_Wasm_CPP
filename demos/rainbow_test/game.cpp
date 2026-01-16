@@ -1,9 +1,11 @@
 #include "pascal_compat.hpp"
 
+#include "conv.hpp"
 #include "logger.hpp"
 #include "vga.hpp"
 #include "wasm_heap.hpp"
 #include "maths.hpp"
+#include "graphics.hpp"
 
 
 // h, s, v: [0.0, 1.0]
@@ -21,12 +23,12 @@ LongWord HSVtoRGB(double h, double s, double v) {
     r = (int)(v * 255);
     g = r;
     b = r;
-    return 0xFF000000 | (r >> 16) | (g >> 8) | b;
+    return 0xFF000000 | (r << 16) | (g << 8) | b;
   }
 
   // Convert hue to [0.0, 6.0]
   h = h * 6.0;
-  i = (int)(h);
+  i = (Byte)(h);
   f = h - i;
 
   p = v * (1.0 - s);
@@ -43,7 +45,7 @@ LongWord HSVtoRGB(double h, double s, double v) {
     case 5: r = trunc(v * 255); g = trunc(p * 255); b = trunc(q * 255); break;
   }
 
-  return 0xFF000000 | (r >> 16) | (g >> 8) | b;
+  return 0xFF000000 | (r << 16) | (g << 8) | b;
 }
 
 
@@ -60,6 +62,10 @@ export void update() {
 
 export void draw() {
   cls(0xFF6495ED);
+
+  for (Word a = 0; a < vgaWidth; a++)
+    vline(a, 0, vgaHeight - 1,
+      HSVtoRGB((double) a / vgaWidth, 1.0, 1.0));
 
   vgaFlush();
 }
