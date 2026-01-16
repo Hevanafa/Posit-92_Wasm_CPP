@@ -6,7 +6,8 @@
 	],
 	"settings": {
 		"C_Cpp.default.includePath": [
-			"E:\\emsdk\\upstream\\emscripten\\cache\\sysroot\\include"
+			"E:\\emsdk\\upstream\\emscripten\\cache\\sysroot\\include",
+			"C:\\Users\\dheva\\source\\repos\\Posit-92_Wasm_CPP\\experimental\\includes"
 		],
 		"C_Cpp.default.compilerPath": "E:/emsdk/upstream/emscripten/emcc.bat"
 	}

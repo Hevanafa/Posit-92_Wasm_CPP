@@ -1,6 +1,6 @@
 #pragma once
 
-#include "includes/pascal_compat.hpp"
+#include "pascal_compat.hpp"
 
 longint imgCGA8x8;
 

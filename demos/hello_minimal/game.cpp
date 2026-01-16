@@ -2,14 +2,14 @@
 #include <stdint.h>
 #include <math.h>
 
-#include "includes/pascal_compat.hpp"
-#include "includes/vga.hpp"
-#include "includes/keyboard.hpp"
-#include "includes/graphics.hpp"
-#include "includes/timing.hpp"
-#include "includes/img_ref.hpp"
-#include "includes/img_ref_fast.hpp"
-#include "includes/wasm_heap.hpp"
+#include "pascal_compat.hpp"
+#include "vga.hpp"
+#include "keyboard.hpp"
+#include "graphics.hpp"
+#include "timing.hpp"
+#include "img_ref.hpp"
+#include "img_ref_fast.hpp"
+#include "wasm_heap.hpp"
 
 #include "assets.hpp"
 

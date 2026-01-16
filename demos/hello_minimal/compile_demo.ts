@@ -6,24 +6,28 @@ const outputFile = "game.wasm";
 
 const exportedFunctions = [
   "getSurfacePtr",
-  "init", "afterInit", "update", "draw", "cleanup",
-  "registerImageRef",
+  "init", "afterInit", "update", "draw",
   "WasmGetMem",
   // assets
   "setImgCGA8x8"
 ];
 
-const proc = Bun.spawn([
+const commandLine = [
   compilerPath,
   primaryFile,
   "-o", outputFile,
+  "-I..\\..\\experimental\\includes",
   "-s", "STANDALONE_WASM=1",
   "-s", `EXPORTED_FUNCTIONS=${ exportedFunctions.map(fname => `_${fname}`).join(",") }`,
-  // "-s", "ALLOW_MEMORY_GROWTH=1",
   "--js-library", "library.js",
   "--no-entry"
-  // "-o", "example.js"
-], {
+];
+
+console.log(commandLine.join(" "));
+// process.exit(1);
+
+
+const proc = Bun.spawn(commandLine, {
   stdout: "pipe",
   stderr: "pipe"
 });
