@@ -680,6 +680,8 @@ class Posit92 {
 
   // VGA.PAS
   flush() { this.#vgaFlush() }
+
+  #once = false;
   
   #vgaFlush() {
     // console.log("vgaFlush is called");
@@ -692,6 +694,13 @@ class Posit92 {
     );
 
     const imgData = new ImageData(imageData, this.#vgaWidth, this.#vgaHeight);
+
+    if (!this.#once) {
+      this.#once = true;
+      // console.log("imageData", imageData);
+      console.log("imgData", imgData);
+      console.log("ctx?", this.#ctx)
+    }
 
     this.#ctx.putImageData(imgData, 0, 0);
   }
