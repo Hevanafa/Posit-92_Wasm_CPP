@@ -50,10 +50,6 @@ LongWord HSVtoRGB(double h, double s, double v) {
   return 0xFF000000 | (r << 16) | (g << 8) | b;
 }
 
-double frac(const double value) {
-  return std::modf(value, nullptr);
-}
-
 export void init() {
   initBuffer();
 }
