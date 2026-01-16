@@ -7,6 +7,8 @@
 #include "maths.hpp"
 #include "graphics.hpp"
 
+// Game state
+int t = 0;
 
 // h, s, v: [0.0, 1.0]
 LongWord HSVtoRGB(double h, double s, double v) {
@@ -48,6 +50,9 @@ LongWord HSVtoRGB(double h, double s, double v) {
   return 0xFF000000 | (r << 16) | (g << 8) | b;
 }
 
+double frac(const double value) {
+  return std::modf(value, nullptr);
+}
 
 export void init() {
   initBuffer();
@@ -58,6 +63,7 @@ export void afterInit() {
 }
 
 export void update() {
+  t++;
 }
 
 export void draw() {
@@ -65,7 +71,7 @@ export void draw() {
 
   for (Word a = 0; a < vgaWidth; a++)
     vline(a, 0, vgaHeight - 1,
-      HSVtoRGB((double) a / vgaWidth, 1.0, 1.0));
+      HSVtoRGB(frac((double)(a + t) / vgaWidth), 1.0, 1.0));
 
   vgaFlush();
 }
