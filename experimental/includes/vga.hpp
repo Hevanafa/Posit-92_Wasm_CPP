@@ -1,5 +1,7 @@
 #pragma once
 
+#include <emscripten.h>
+
 #include "pascal_compat.hpp"
 #include "logger.hpp"
 

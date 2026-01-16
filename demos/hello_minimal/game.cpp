@@ -1,5 +1,4 @@
 #include <emscripten.h>
-#include <stdint.h>
 
 #include "pascal_compat.hpp"
 
@@ -23,7 +22,7 @@ export void update() {
 export void draw() {
   Word a;
 
-  cls(0x6495ED);
+  cls(0xFF6495ED);
 
   if (!once) {
     once = true;

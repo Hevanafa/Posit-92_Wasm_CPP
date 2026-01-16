@@ -698,7 +698,7 @@ class Posit92 {
     if (!this.#once) {
       this.#once = true;
       // console.log("imageData", imageData);
-      console.log("imgData", imgData);
+      console.log("imgData", imgData.data.slice(0, 20).join(" "));
       console.log("ctx?", this.#ctx)
     }
 
