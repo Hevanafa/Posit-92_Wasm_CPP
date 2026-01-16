@@ -23,7 +23,7 @@ const commandLine = [
   "--no-entry"
 ];
 
-console.log(commandLine.join(" "));
+// console.log(commandLine.join(" "));
 // process.exit(1);
 
 
