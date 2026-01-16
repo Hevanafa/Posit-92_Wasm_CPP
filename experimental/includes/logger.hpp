@@ -2,21 +2,21 @@
 
 #include <emscripten.h>
 #include <string>
-// #include "pascal_compat.hpp"
+#include "pascal_compat.hpp"
 
-uint8_t logBuffer[256];
+Byte logBuffer[256];
 
 extern "C" {
   extern void flushLog();
 }
 
-extern "C" EMSCRIPTEN_KEEPALIVE uint8_t* getLogBuffer() {
+export PByte getLogBuffer() {
   return logBuffer;
 }
 
 void writeLog(const std::string& msg) {
-  char a;
-  unsigned short len;
+  Byte a;
+  Word len;
   
   len = msg.length();
 
