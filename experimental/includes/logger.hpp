@@ -1,6 +1,5 @@
 #pragma once
 
-#include <emscripten.h>
 #include <string>
 #include "pascal_compat.hpp"
 
@@ -8,6 +7,7 @@ Byte logBuffer[256];
 
 extern "C" {
   extern void flushLog();
+  extern void writeLogI32(const LongInt value);
 }
 
 export PByte getLogBuffer() {

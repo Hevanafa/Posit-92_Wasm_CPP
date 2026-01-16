@@ -1,6 +1,7 @@
 #pragma once
 
 #include "pascal_compat.hpp"
+#include "logger.hpp"
 
 const Word
   vgaWidth = 320,
@@ -16,15 +17,16 @@ extern "C" {
 export PByte getSurfacePtr() { return surface; }
 
 void initBuffer() {
+  writeLog("initBuffer call");
   surface = (PByte) malloc(bufferSize);
 }
 
 void cls(LongWord colour) {
   Byte r, g, b, a;
 
-  a = colour >> 24 & 0xff;
-  r = colour >> 16 & 0xff;
-  g = colour >> 8 & 0xff;
+  a = (colour >> 24) & 0xff;
+  r = (colour >> 16) & 0xff;
+  g = (colour >> 8) & 0xff;
   b = colour & 0xff;
 
   for (int i=0; i < vgaWidth * vgaHeight; i++) {
@@ -39,10 +41,10 @@ void cls(LongWord colour) {
 void unsafePset(SmallInt x, SmallInt y, LongWord colour) {
   LongWord offset = (x + y * vgaWidth) * 4;
   // ARGB to RGBA
-  surface[offset] = colour & 0x00FF0000 >> 16;
-  surface[offset + 1] = colour & 0x0000FF00 >> 8;
-  surface[offset + 2] = colour & 0x000000FF;
-  surface[offset + 3] = colour & 0xFF000000 >> 24;
+  surface[offset] = (colour & 0x00FF0000) >> 16;
+  surface[offset + 1] = (colour & 0x0000FF00) >> 8;
+  surface[offset + 2] = (colour & 0x000000FF);
+  surface[offset + 3] = (colour & 0xFF000000) >> 24;
 }
 
 void pset(SmallInt x, SmallInt y, LongWord colour) {
