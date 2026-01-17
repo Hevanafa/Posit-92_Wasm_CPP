@@ -88,7 +88,7 @@ export void draw() {
   // printSimple("Hello world!", 30, 30);
 
   printSimple("getTimer: " + f32str(getTimer()), 10, 10);
-  printSimple("getFullTimer: " + f32str(getFullTimer()), 10, 20);
+  printSimple("getFullTimer: " + toFixed(getFullTimer(), 5), 10, 20);
 
   angle += 0.1667;
   x = vgaWidth / 2 + sin(angle) * 10;
