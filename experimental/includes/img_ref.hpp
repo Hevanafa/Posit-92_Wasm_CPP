@@ -28,13 +28,13 @@ TImageRef imageRefs[MaxImageRefs + 1];  // index 0 is unused
  * 
  * This approach ensures stable addresses throughout the runtime
  **/
-LongWord imageDataPoolSize = 256 * 1024;
-Byte imageDataPool[256 * 1024];
-LongWord poolOffset = 0;
-
 // LongWord imageDataPoolSize = 256 * 1024;
-// PByte imageDataPool = (PByte)malloc(imageDataPoolSize);
+// Byte imageDataPool[256 * 1024];
 // LongWord poolOffset = 0;
+
+LongWord imageDataPoolSize = 256 * 1024;
+PByte imageDataPool = (PByte)malloc(imageDataPoolSize);
+LongWord poolOffset = 0;
 
 bool isImageSet(const LongInt imgHandle) {
   if (imgHandle < 0 || imgHandle > MaxImageRefs)
@@ -65,7 +65,7 @@ SmallInt findEmptyImageRefSlot() {
  * 
  * @deprecated
  */
-export void registerImageRefLegacy(const LongInt imgHandle, const PByte tempPtr, const SmallInt w, const SmallInt h) {
+export void registerImageRef(const LongInt imgHandle, const PByte tempPtr, const SmallInt w, const SmallInt h) {
   SmallInt idx = findEmptyImageRefSlot();
 
   if (idx < 0) panicHalt("Image ref pool is full!");
@@ -75,13 +75,15 @@ export void registerImageRefLegacy(const LongInt imgHandle, const PByte tempPtr,
   imageRefs[imgHandle].width = w;
   imageRefs[imgHandle].height = h;
   imageRefs[imgHandle].allocSize = allocSize;
+  // imageRefs[imgHandle].dataPtr = dataPtr;
+  
   imageRefs[imgHandle].dataPtr = (PByte) malloc(allocSize);
 
   memcpy(imageRefs[imgHandle].dataPtr, tempPtr, allocSize);
   free(tempPtr);
 }
 
-export void registerImageRef(
+export void registerImageRefNew(
   const LongInt imgHandle,
   const PByte tempPtr,
   const SmallInt w, const SmallInt h)
