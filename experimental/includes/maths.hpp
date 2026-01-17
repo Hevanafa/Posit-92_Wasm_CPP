@@ -1,5 +1,11 @@
 #pragma once
 
+#include "pascal_compat.hpp"
+
+// LongInt trunc(const double value) {
+//   return (LongInt)value;
+// }
+
 double frac(const double value) {
   return std::modf(value, nullptr);
 }

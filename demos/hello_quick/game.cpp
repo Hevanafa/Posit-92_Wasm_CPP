@@ -105,13 +105,13 @@ export void draw() {
 
   cls(CornflowerBlue);
 
-  if (trunc(gameTime * 4) and 1) > 0 then
-    spr(imgDosuEXE[1], 148, 88)
+  if (((LongInt)(gameTime * 4) & 1) > 0)
+    spr(imgDosuEXE[1], 148, 88);
   else
     spr(imgDosuEXE[0], 148, 88);
 
-  s := 'Hello world!';
-  w := measureDefault(s);
+  s = "Hello world!";
+  w = measureDefault(s);
   printDefault("Hello world!", 30, 30);
 
   drawMouse();
