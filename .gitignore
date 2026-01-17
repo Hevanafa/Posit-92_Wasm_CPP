@@ -8,7 +8,7 @@ dist/
 *.wasm
 
 demos/*/*.ts
-!demos/hello_minimal/compile_demo.ts
+!demos/hello_minimal/exported.ts
 
 prototype/*.ts
 unstable/*.ts
