@@ -12,6 +12,10 @@ mergeInto(LibraryManager.library, {
   // keyboard.hpp
   isKeyDown: (n) => {},
 
+  // logger.hpp
+  flushLog: () => {},
+  writeLogI32: (n) => {},
+
   // panic.hpp
   jsPanicHalt: (a, b) => {},
 

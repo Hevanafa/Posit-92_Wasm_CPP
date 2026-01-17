@@ -1,9 +1,9 @@
 #pragma once
 
-#include "includes/pascal_compat.hpp"
+#include "pascal_compat.hpp"
 
-longint imgCGA8x8;
+LongInt imgCGA8x8;
 
-export void setImgCGA8x8(longint imgHandle) {
+export void setImgCGA8x8(LongInt imgHandle) {
   imgCGA8x8 = imgHandle;
 }

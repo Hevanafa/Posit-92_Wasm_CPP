@@ -2,14 +2,14 @@
 #include <stdint.h>
 #include <math.h>
 
-#include "includes/pascal_compat.hpp"
-#include "includes/vga.hpp"
-#include "includes/keyboard.hpp"
-#include "includes/graphics.hpp"
-#include "includes/timing.hpp"
-#include "includes/img_ref.hpp"
-#include "includes/img_ref_fast.hpp"
-#include "includes/wasm_heap.hpp"
+#include "pascal_compat.hpp"
+#include "vga.hpp"
+#include "keyboard.hpp"
+#include "graphics.hpp"
+#include "timing.hpp"
+#include "img_ref.hpp"
+#include "img_ref_fast.hpp"
+#include "wasm_heap.hpp"
 
 #include "assets.hpp"
 
@@ -17,31 +17,30 @@ extern "C" {
   extern void signalDone();
 }
 
-const byte
+const Byte
   SC_ESC = 0x01;
 
-const longword white = 0xFFFFFFFF;
+const LongWord white = 0xFFFFFFFF;
 
 // Game state variables
 double angle = 0.0;
 double gameTime = 0.0;
 
-void printChar(const char c, const smallint x, const smallint y) {
-  smallint row, col;
+void printChar(const char c, const SmallInt x, const SmallInt y) {
+  SmallInt row, col;
   row = c / 16;
   col = c % 16;
   sprRegion(imgCGA8x8, col * 8, row * 8, 8, 8, x, y);
 }
 
-void printSimple(const std::string& text, const smallint x, const smallint y) {
-  smallint left = x;
+void printSimple(const std::string& text, const SmallInt x, const SmallInt y) {
+  SmallInt left = x;
 
-  for (word a = 0; a < text.length(); a++) {
+  for (Word a = 0; a < text.length(); a++) {
     printChar(text[a], left, y);
     left += 8;
   }
 }
-
 
 
 export void cleanup() {
@@ -80,7 +79,7 @@ export void draw() {
   
   line(
     vgaWidth / 2, vgaHeight / 2,
-    (smallint) x, (smallint) y, white);
+    (SmallInt) x, (SmallInt) y, white);
 
   vgaFlush();
 }
