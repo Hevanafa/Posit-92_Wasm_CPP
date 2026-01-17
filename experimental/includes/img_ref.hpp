@@ -44,6 +44,8 @@ SmallInt findEmptyImageRefSlot() {
 
 /**
  * Doesn't work because of how unpredictable `malloc` is
+ * 
+ * @deprecated
  */
 export void registerImageRefLegacy(const LongInt imgHandle, const PByte tempPtr, const SmallInt w, const SmallInt h) {
   SmallInt idx = findEmptyImageRefSlot();
@@ -61,7 +63,16 @@ export void registerImageRefLegacy(const LongInt imgHandle, const PByte tempPtr,
   free(tempPtr);
 }
 
-// Image pool is essential because of how unpredictable `malloc` is
+/**
+ * Static image data pool: All image pixel data is stored here
+ * 
+ * We use a fixed pool instead of `malloc` because:
+ * 
+ * - `malloc()` in WASM can reuse freed addresses unpredictably
+ * - WASM memory can relocate when it grows *and* invalidating pointers
+ * 
+ * This approach ensures stable addresses throughout the runtime
+ **/
 Byte imageDataPool[256 * 1024];
 LongWord poolOffset = 0;
 
