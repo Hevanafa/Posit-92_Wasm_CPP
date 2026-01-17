@@ -108,8 +108,17 @@ export void update() {
   gameTime += dt;
 }
 
+void debugMouse() {
+  std::string text;
+  text = "Mouse { ";
+  text += "x: " + i32str(mouseX) + ", ";
+  text += "y: " + i32str(mouseY) + ", ";
+  text += "mouseButton: " + i32str(mouseButton) + " }";
+  printDefault(text, 10, 10);
+}
+
 export void draw() {
-  Word w;
+  Word w, a;
   std::string s;
 
   if (actualGameState == GameStateLoading) {
@@ -124,9 +133,19 @@ export void draw() {
   else
     spr(imgDosuEXE[0], 148, 88);
 
-  s = "Hello world!";
-  w = measureDefault(s);
-  printDefault("Hello world!", (vgaWidth - w) / 2, 120);
+  // for (a = 0; a<100; a++)
+  //   sprRegion(defaultFont.imgHandle,
+  //     10, 10, 10, 10,
+  //     random() % vgaWidth, random() % vgaHeight);
+
+  // for (a=0; a<100; a++)
+  //   spr(imgDosuEXE[0], random() % vgaWidth, random() % vgaHeight);
+
+  // s = "Hello world!";
+  // w = measureDefault(s);
+  // printDefault(s, (vgaWidth - w) / 2, 120);
+
+  debugMouse();
 
   drawMouse();
   drawFPS();

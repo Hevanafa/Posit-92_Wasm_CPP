@@ -28,7 +28,9 @@ TImageRef imageRefs[MaxImageRefs + 1];  // index 0 is unused
  * 
  * This approach ensures stable addresses throughout the runtime
  **/
+// LongWord imageDataPoolSize = 256 * 1024;
 // Byte imageDataPool[256 * 1024];
+// LongWord poolOffset = 0;
 
 LongWord imageDataPoolSize = 256 * 1024;
 PByte imageDataPool = (PByte)malloc(imageDataPoolSize);

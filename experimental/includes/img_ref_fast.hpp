@@ -26,8 +26,8 @@ void spr(const LongInt imgHandle, const SmallInt x, const SmallInt y) {
 
   for (py = 0; py < image->height; py++)
   for (px = 0; px < image->width; px++) {
-    if ((x + px >= vgaWidth) || (x + px < 0)
-      || (y + py >= vgaHeight) || (y + py < 0)) continue;
+    if ((x + px < 0) || (x + px >= vgaWidth) ||
+      (y + py < 0) || (y + py >= vgaHeight)) continue;
 
     // offset to ImageData buffer
     offset = (px + py * image->width) * 4;

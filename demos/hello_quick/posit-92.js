@@ -624,9 +624,9 @@ class Posit92 {
       this.#updateMouseButton();
     });
 
-    this.#canvas.addEventListener("contextmenu", e => {
-      e.preventDefault()
-    });
+    // this.#canvas.addEventListener("contextmenu", e => {
+    //   e.preventDefault()
+    // });
   }
 
   #getMouseX() { return this.#mouseX }
