@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include <cstring>
 #include "pascal_compat.hpp"
 
 Byte logBuffer[256];
@@ -15,19 +15,17 @@ export PByte getLogBuffer() {
   return logBuffer;
 }
 
-void writeLog(const std::string& msg) {
+void writeLog(const char* msg) {
   Byte a;
   Word len;
   
-  len = msg.length();
+  len = strlen(msg);
 
   // Cap length to 255
   if (len > 255) len = 255;
 
   logBuffer[0] = len;
-  // for a:=1 to len do
-  for (a = 1; a <= len; a++)
-    logBuffer[a] = msg[a - 1];
+  strncpy((char*)&logBuffer[1], msg, len);
 
   // JS will read logBuffer
   flushLog();

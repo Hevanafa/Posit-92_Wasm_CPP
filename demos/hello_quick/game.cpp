@@ -94,6 +94,7 @@ export void init() {
 }
 
 export void afterInit() {
+  writeLog("Test log in afterInit!");
   beginPlayingState();
 }
 
@@ -135,8 +136,6 @@ export void draw() {
     spr(imgDosuEXE[1], 148, 88);
   else
     spr(imgDosuEXE[0], 148, 88);
-
-  panicHalt("Test panic!");
 
   // strcpy(s, "Hello WebAssembly from Posit-92 Wasm!");
   strcpy(s, "Test ");
