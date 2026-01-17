@@ -68,14 +68,17 @@ export void update() {
 
 export void draw() {
   double x, y;
-  Word a;
-  PImageRef image;
 
   cls(0xFF6495ED);
 
-  spr(imgCGA8x8, 10, 10);
+  // spr(imgCGA8x8, 10, 10);
   // sprRegion(imgCGA8x8, 16, 16, 8, 8, 10, 10);
-  // printSimple("Hello world!", 10, 10);
+  // printChar(' ', 30, 30);
+
+  // printSimple("Hello", 30, 30);
+  // printSimple("world!", 30, 30);
+  // printSimple("Heeelllooowww!", 30, 50);
+  printSimple("Hello world!", 30, 30);
 
   angle += 0.1667;
   x = vgaWidth / 2 + sin(angle) * 10;

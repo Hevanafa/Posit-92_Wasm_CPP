@@ -56,8 +56,6 @@ void sprRegion(
 
   image = getImagePtr(imgHandle);
 
-  // for b:=0 to srcH - 1 do
-  // for a:=0 to srcW - 1 do begin
   for (b = 0; b < srcH; b++)
   for (a = 0; a < srcW; a++) {
     if ((destX + a >= vgaWidth) || (destX + a < 0)
