@@ -42,6 +42,9 @@ SmallInt findEmptyImageRefSlot() {
   return -1;
 }
 
+/**
+ * Doesn't work because of how unpredictable `malloc` is
+ */
 export void registerImageRefLegacy(const LongInt imgHandle, const PByte tempPtr, const SmallInt w, const SmallInt h) {
   SmallInt idx = findEmptyImageRefSlot();
 
@@ -56,30 +59,9 @@ export void registerImageRefLegacy(const LongInt imgHandle, const PByte tempPtr,
 
   memcpy(imageRefs[imgHandle].dataPtr, tempPtr, allocSize);
   free(tempPtr);
-
-  // Begin debug info
-  writeLog(i32str(w) + ", " + i32str(h));
-  writeLog("allocSize: ");
-  writeLogI64(imageRefs[imgHandle].allocSize);
-
-  writeLog("offset");
-  LongWord offset = reinterpret_cast<LongWord>(tempPtr);
-  writeLogI64(offset);
-
-  writeLog("imgHandle comparison for handle " + i32str(imgHandle));
-  writeLogI64(reinterpret_cast<LongWord>(imageRefs[imgHandle].dataPtr));
-  writeLogI64(reinterpret_cast<LongWord>(getImagePtr(imgHandle)->dataPtr));
-
-  writeLog("20 bytes (from direct access)");
-  for (Word a = 60; a < 80; a++)
-    writeLogI32(imageRefs[imgHandle].dataPtr[a]);
-
-  writeLog("20 bytes (from pointer)");
-  for (Word a = 60; a < 80; a++)
-    writeLogI32(getImagePtr(imgHandle)->dataPtr[a]);
 }
 
-
+// Image pool is essential because of how unpredictable `malloc` is
 Byte imageDataPool[256 * 1024];
 LongWord poolOffset = 0;
 

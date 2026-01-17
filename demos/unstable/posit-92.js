@@ -304,8 +304,6 @@ class Posit92 {
     const wasmPtr = this.#wasm.exports.WasmGetMem(byteSize);
     wasmMemory.set(imageData.data, wasmPtr)
 
-    console.log("imageData", imageData.data.slice(40, 60));
-
     if (this.#images.length == 0)
       this.#images.push(null);
 
