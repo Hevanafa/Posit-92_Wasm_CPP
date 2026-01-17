@@ -45,7 +45,9 @@ extern "C" {
 }
 
 void drawFPS() {
-  printDefault("FPS:" + i32str(getLastFPS()), 240, 0);
+  char text[16];
+  snprintf(text, sizeof(text), "FPS: %d", getLastFPS());
+  printDefault(text, 240, 0);
 }
 
 void drawMouse() {
@@ -68,9 +70,12 @@ void beginPlayingState() {
 }
 
 void renderLoadingScreen() {
+  char s[40];
+
   cls(0xFF000000);
 
-  const char* s = "Progress: " + i32str(getLoadingActual()) + " / " + i32str(getLoadingTotal());
+  // const char* s = "Progress: " + i32str(getLoadingActual()) + " / " + i32str(getLoadingTotal());
+  snprintf(s, sizeof(s), "Progress: %d / %d", getLoadingActual(), getLoadingTotal());
   Word w = measureDefault(s);
   printDefault(s, (vgaWidth - w) / 2, vgaHeight / 2 - defaultFont.lineHeight);
 
@@ -106,11 +111,12 @@ export void update() {
 }
 
 void debugMouse() {
-  static std::string text;
-  text = "Mouse { ";
-  text += "x: " + i32str(mouseX) + ", ";
-  text += "y: " + i32str(mouseY) + ", ";
-  text += "mouseButton: " + i32str(mouseButton) + " }";
+  char text[64];
+
+  snprintf(text, sizeof(text),
+    "Mouse { x: %d, y: %d, mouseButton: %d }",
+    mouseX, mouseY, mouseButton);
+
   printDefault(text, 10, 10);
 }
 
