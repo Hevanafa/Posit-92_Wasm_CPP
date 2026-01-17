@@ -4,5 +4,5 @@ export const exportedFunctions = [
   "registerImageRef",
   "WasmGetMem",
   // assets
-  "setImgCGA8x8"
+  "defaultFontPtr", "defaultFontGlyphsPtr"
 ];

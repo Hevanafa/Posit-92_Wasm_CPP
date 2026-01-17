@@ -3,6 +3,7 @@
 #include <string>
 
 #include "pascal_compat.hpp"
+#include "img_ref_fast.hpp"
 
 struct TBMFontGlyph {
   Word id;
