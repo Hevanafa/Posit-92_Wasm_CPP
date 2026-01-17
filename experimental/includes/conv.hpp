@@ -14,14 +14,10 @@ std::string f32str(const double value) {
   return std::string(buffer);
 }
 
-std::string toFixed(const double value, const SmallInt decimals) {
+std::string toFixed(const double value, SmallInt decimals) {
   char buffer[32];
+  decimals = decimals < 0 ? 0 : decimals;
 
-  if (decimals <= 0) {
-    snprintf(buffer, sizeof(buffer), "%.0f", value);
-    return std::string(buffer);
-  }
-
-  snprintf(buffer, sizeof(buffer), ("%." + i32str(decimals) + "f").c_str(), value);
+  snprintf(buffer, sizeof(buffer), "%.*f", decimals, value);
   return std::string(buffer);
 }
