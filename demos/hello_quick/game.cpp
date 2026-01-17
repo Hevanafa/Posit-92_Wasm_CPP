@@ -119,7 +119,7 @@ void debugMouse() {
 
 export void draw() {
   Word w, a;
-  static std::string s;
+  static const std::string s = "Hello WebAssembly from Posit-92 Wasm!";
 
   if (actualGameState == GameStateLoading) {
     renderLoadingScreen();
@@ -141,7 +141,6 @@ export void draw() {
   // for (a=0; a<100; a++)
   //   spr(imgDosuEXE[0], random() % vgaWidth, random() % vgaHeight);
 
-  s = "Hello WebAssembly from Posit-92 Wasm!";
   w = measureDefault(s);
   printDefault(s, (vgaWidth - w) / 2, 120);
 
