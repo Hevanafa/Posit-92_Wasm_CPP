@@ -15,3 +15,9 @@ std::string f32str(const double value) {
   oss << std::fixed << std::setprecision(4) << value;
   return oss.str();
 }
+
+std::string toFixed(const double value, const SmallInt decimals) {
+  std::ostringstream oss;
+  oss << std::fixed << std::setprecision(decimals) << value;
+  return oss.str();
+}
