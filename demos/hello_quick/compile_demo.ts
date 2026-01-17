@@ -12,6 +12,9 @@ const commandLine = [
   "-I..\\..\\experimental\\includes",
   "-s", "STANDALONE_WASM=1",
   "-s", "STACK_SIZE=262144",
+  "-s", "INITIAL_MEMORY=2359296",
+  // "-s", "MAXIMUM_MEMORY=2359296",
+  // "-s", "ALLOW_MEMORY_GROWTH=0",
   "-s", `EXPORTED_FUNCTIONS=${ exportedFunctions.map(fname => `_${fname}`).join(",") }`,
   "-g", "-O0", "--profiling-funcs",  // Make it verbose
   "--js-library", "library.js",

@@ -1,5 +1,7 @@
 #pragma once
 
+// #include <stack.h>
+
 #include "pascal_compat.hpp"
 #include "conv.hpp"
 #include "logger.hpp"
@@ -28,13 +30,13 @@ TImageRef imageRefs[MaxImageRefs + 1];  // index 0 is unused
  * 
  * This approach ensures stable addresses throughout the runtime
  **/
-// LongWord imageDataPoolSize = 256 * 1024;
-// Byte imageDataPool[256 * 1024];
-// LongWord poolOffset = 0;
-
-LongWord imageDataPoolSize = 256 * 1024;
-PByte imageDataPool = (PByte)malloc(imageDataPoolSize);
+const LongWord imageDataPoolSize = 256 * 1024;
+Byte imageDataPool[imageDataPoolSize];
 LongWord poolOffset = 0;
+
+// LongWord imageDataPoolSize = 1024 * 1024;
+// PByte imageDataPool = nullptr;
+// LongWord poolOffset = 0;
 
 bool isImageSet(const LongInt imgHandle) {
   if (imgHandle < 0 || imgHandle > MaxImageRefs)
@@ -65,7 +67,7 @@ SmallInt findEmptyImageRefSlot() {
  * 
  * @deprecated
  */
-export void registerImageRef(const LongInt imgHandle, const PByte tempPtr, const SmallInt w, const SmallInt h) {
+export void registerImageRefLegacy(const LongInt imgHandle, const PByte tempPtr, const SmallInt w, const SmallInt h) {
   SmallInt idx = findEmptyImageRefSlot();
 
   if (idx < 0) panicHalt("Image ref pool is full!");
@@ -83,12 +85,24 @@ export void registerImageRef(const LongInt imgHandle, const PByte tempPtr, const
   free(tempPtr);
 }
 
-export void registerImageRefNew(
+export void registerImageRef(
   const LongInt imgHandle,
   const PByte tempPtr,
   const SmallInt w, const SmallInt h)
 {
+  // if (imageDataPool == nullptr) {
+  //   imageDataPool = (PByte)malloc(imageDataPoolSize);
+
+  //   writeLog("Base stack:");
+  //   writeLogI32(reinterpret_cast<LongWord>(emscripten_stack_get_base()));
+  //   writeLog("Stack end:");
+  //   writeLogI32(reinterpret_cast<LongWord>(emscripten_stack_get_end()));
+  // }
+
   LongWord allocSize = w * h * 4;
+
+  // writeLog("imageDataPool");
+  // writeLogI32(reinterpret_cast<LongWord>(imageDataPool));
 
   if (poolOffset + allocSize > imageDataPoolSize)
     panicHalt("Image pool exhausted!");
