@@ -65,8 +65,8 @@ export void registerImageRef(const LongInt imgHandle, const PByte dataPtr, const
     writeLogI32(imageRefs[imgHandle].dataPtr[a]);
 
   writeLog("imgHandle comparison for handle " + i32str(imgHandle));
-  writeLogI64(reinterpret_cast<LongWord>(&imageRefs[imgHandle]));
-  writeLogI64(reinterpret_cast<LongWord>(getImagePtr(imgHandle)));
+  writeLogI64(reinterpret_cast<LongWord>(imageRefs[imgHandle].dataPtr));
+  writeLogI64(reinterpret_cast<LongWord>(getImagePtr(imgHandle)->dataPtr));
 }
 
 LongWord unsafeSprPget(const PImageRef image, const SmallInt x, const SmallInt y) {

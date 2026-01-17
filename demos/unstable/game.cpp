@@ -73,7 +73,7 @@ export void draw() {
   Word a;
   PImageRef image;
 
-  cls(0xFF101010);
+  cls(0xFF6495ED);
 
   if (!once) {
     once = true;
@@ -86,12 +86,17 @@ export void draw() {
     if (image == nullptr)
       writeLog("imgCGA8x8 is nil");
     else {
-      writeLog("Pixels");
+      writeLog("Pixels 60 to 79");
 
-      for (a=0; a<20; a++)
-        writeLogI32(unsafeSprPget(image, a, 0));
+      for (a=60; a<80; a++)
+        writeLogI32(image->dataPtr[a]);
+        // writeLogI32(unsafeSprPget(image, a, 0));
     }
   }
+
+  unsafePset(10, 10, white);
+  unsafePset(10, 11, white);
+  unsafePset(10, 12, white);
 
   spr(imgCGA8x8, 10, 10);
   // sprRegion(imgCGA8x8, 16, 16, 8, 8, 10, 10);
