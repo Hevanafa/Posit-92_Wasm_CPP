@@ -136,6 +136,8 @@ export void draw() {
   else
     spr(imgDosuEXE[0], 148, 88);
 
+  panicHalt("Test panic!");
+
   // strcpy(s, "Hello WebAssembly from Posit-92 Wasm!");
   strcpy(s, "Test ");
   strcat(s, i32str(123));
