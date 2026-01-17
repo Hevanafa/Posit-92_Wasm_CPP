@@ -8,6 +8,7 @@
 #include "graphics.hpp"
 #include "mouse.hpp"
 #include "timing.hpp"
+#include "loading.hpp"
 #include "img_ref.hpp"
 #include "img_ref_fast.hpp"
 #include "logger.hpp"
@@ -64,6 +65,19 @@ void beginPlayingState() {
   // Initialise game state here
   actualGameState = GameStatePlaying;
   gameTime = 0.0;
+}
+
+void renderLoadingScreen() {
+  std::string s;
+  Word w;
+
+  cls(0xFF000000);
+
+  s = "Progress: " + i32str(getLoadingActual()) + " / " + i32str(getLoadingTotal());
+  w = measureDefault(s);
+  printDefault(s, (vgaWidth - w) / 2, vgaHeight / 2 - defaultFont.lineHeight);
+
+  vgaFlush();
 }
 
 
