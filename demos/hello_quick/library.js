@@ -19,9 +19,9 @@ mergeInto(LibraryManager.library, {
   showCursor: () => {},
 
   // Fullscreen
-  // toggleFullscreen
-  // endFullscreen
-  // getFullscreenState
+  toggleFullscreen: () => {},
+  endFullscreen: () => {},
+  getFullscreenState: () => {},
   fitCanvas: () => {},
 
   // keyboard.hpp

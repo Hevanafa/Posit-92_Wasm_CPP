@@ -6,6 +6,7 @@
 #include "vga.hpp"
 #include "keyboard.hpp"
 #include "graphics.hpp"
+#include "mouse.hpp"
 #include "timing.hpp"
 #include "img_ref.hpp"
 #include "img_ref_fast.hpp"
@@ -13,6 +14,7 @@
 #include "fps.hpp"
 #include "wasm_heap.hpp"
 #include "bmfont.hpp"
+#include "fullscreen.hpp"
 
 #include "assets.hpp"
 
@@ -37,7 +39,6 @@ double gameTime;
 
 extern "C" {
   extern void signalDone();
-  extern void hideCursor();
   extern void hideLoadingOverlay();
   extern void loadAssets();
 }
