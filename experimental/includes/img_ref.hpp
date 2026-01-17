@@ -18,6 +18,22 @@ const SmallInt
 
 TImageRef imageRefs[MaxImageRefs + 1];  // index 0 is unused
 
+/**
+ * Static image data pool: All image pixel data is stored here
+ * 
+ * We use a fixed pool instead of `malloc` because:
+ * 
+ * - `malloc()` in WASM can reuse freed addresses unpredictably
+ * - WASM memory can relocate when it grows *and* invalidating pointers
+ * 
+ * This approach ensures stable addresses throughout the runtime
+ **/
+// Byte imageDataPool[256 * 1024];
+
+LongWord imageDataPoolSize = 256 * 1024;
+PByte imageDataPool = (PByte)malloc(imageDataPoolSize);
+LongWord poolOffset = 0;
+
 bool isImageSet(const LongInt imgHandle) {
   if (imgHandle < 0 || imgHandle > MaxImageRefs)
     return false;
@@ -62,22 +78,6 @@ export void registerImageRefLegacy(const LongInt imgHandle, const PByte tempPtr,
   memcpy(imageRefs[imgHandle].dataPtr, tempPtr, allocSize);
   free(tempPtr);
 }
-
-/**
- * Static image data pool: All image pixel data is stored here
- * 
- * We use a fixed pool instead of `malloc` because:
- * 
- * - `malloc()` in WASM can reuse freed addresses unpredictably
- * - WASM memory can relocate when it grows *and* invalidating pointers
- * 
- * This approach ensures stable addresses throughout the runtime
- **/
-// Byte imageDataPool[256 * 1024];
-
-LongWord imageDataPoolSize = 256 * 1024;
-PByte imageDataPool = (PByte)malloc(imageDataPoolSize);
-LongWord poolOffset = 0;
 
 export void registerImageRef(
   const LongInt imgHandle,
