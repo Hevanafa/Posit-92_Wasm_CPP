@@ -22,6 +22,10 @@ void printDefault(const std::string& text, const SmallInt x, const SmallInt y) {
   printBMFont(defaultFont, defaultFontGlyphs, text, x, y);
 }
 
+Word measureDefault(const std::string& text) {
+  return measureBMFont(defaultFontGlyphs, text);
+}
+
 // Asset boilerplate
 export void setImgCursor(const LongInt imgHandle) {
   imgCursor = imgHandle;
