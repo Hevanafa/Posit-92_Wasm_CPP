@@ -43,8 +43,8 @@ void spr(const LongInt imgHandle, const SmallInt x, const SmallInt y) {
 void sprRegion(
   const LongInt imgHandle,
   const SmallInt srcX, const SmallInt srcY, const SmallInt srcW, const SmallInt srcH,
-  const SmallInt destX, const SmallInt destY)
-{
+  const SmallInt destX, const SmallInt destY
+) {
   PImageRef image;
   SmallInt a, b;
   SmallInt sx, sy;
@@ -63,6 +63,10 @@ void sprRegion(
 
     sx = srcX + a;
     sy = srcY + b;
+
+    if ((sx < 0) || (sx >= image->width) ||
+      (sy < 0) || (sy >= image->height)) continue;
+      
     srcPos = (sx + sy * image->width) * 4;
 
     alpha = image->dataPtr[srcPos + 3];
