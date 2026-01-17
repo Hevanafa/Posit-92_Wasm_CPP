@@ -10,6 +10,7 @@ dist/
 demos/*/*.ts
 !demos/*/exported.ts
 !demos/*/exports.ts
+!demos/hello_quick/compile_demo.ts
 
 prototype/*.ts
 unstable/*.ts

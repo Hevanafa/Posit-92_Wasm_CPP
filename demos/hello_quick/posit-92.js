@@ -38,6 +38,7 @@ class Posit92 {
 
       // Emscripten
       // wasi_snapshot_preview1: () => {},
+      emscripten_notify_memory_growth: (mem) => {},
 
       // Intro
       hideLoadingOverlay: this.hideLoadingOverlay.bind(this),
@@ -176,7 +177,7 @@ class Posit92 {
      * * 1MB-2MB: heap
      */
     const heapStart = 256 * 1024;
-    const heapSize = 1 * 1048576;
+    const heapSize = 31 * 1048576;
 
     // Wasm memory is in 64KB pages
     const pages = this.#wasm.exports.memory.buffer.byteLength / 65536;

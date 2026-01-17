@@ -11,6 +11,8 @@ mergeInto(LibraryManager.library, {
   hideLoadingOverlay: () => {},
   loadAssets: () => {},
 
+  emscripten_notify_memory_growth: (n) => {},
+
   // Loading
   getLoadingActual: () => {},
   getLoadingTotal: () => {},

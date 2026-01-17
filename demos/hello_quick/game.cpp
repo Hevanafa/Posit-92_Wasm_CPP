@@ -68,7 +68,7 @@ void beginPlayingState() {
 }
 
 void renderLoadingScreen() {
-  std::string s;
+  static std::string s;
   Word w;
 
   cls(0xFF000000);
@@ -109,7 +109,7 @@ export void update() {
 }
 
 void debugMouse() {
-  std::string text;
+  static std::string text;
   text = "Mouse { ";
   text += "x: " + i32str(mouseX) + ", ";
   text += "y: " + i32str(mouseY) + ", ";
@@ -119,7 +119,7 @@ void debugMouse() {
 
 export void draw() {
   Word w, a;
-  std::string s;
+  static std::string s;
 
   if (actualGameState == GameStateLoading) {
     renderLoadingScreen();
@@ -141,11 +141,11 @@ export void draw() {
   // for (a=0; a<100; a++)
   //   spr(imgDosuEXE[0], random() % vgaWidth, random() % vgaHeight);
 
-  // s = "Hello world!";
-  // w = measureDefault(s);
-  // printDefault(s, (vgaWidth - w) / 2, 120);
+  s = "Hello WebAssembly from Posit-92 Wasm!";
+  w = measureDefault(s);
+  printDefault(s, (vgaWidth - w) / 2, 120);
 
-  debugMouse();
+  // debugMouse();
 
   drawMouse();
   drawFPS();
