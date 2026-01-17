@@ -11,6 +11,7 @@ const commandLine = [
   "-o", outputFile,
   "-I..\\..\\experimental\\includes",
   "-s", "STANDALONE_WASM=1",
+  "-s", "STACK_SIZE=256000",
   "-s", `EXPORTED_FUNCTIONS=${ exportedFunctions.map(fname => `_${fname}`).join(",") }`,
   "--js-library", "library.js",
   "--no-entry"
