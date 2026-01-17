@@ -12,6 +12,7 @@
 #include "logger.hpp"
 #include "fps.hpp"
 #include "wasm_heap.hpp"
+#include "bmfont.hpp"
 
 #include "assets.hpp"
 
