@@ -5,7 +5,7 @@ export const exportedFunctions = [
   "WasmGetMem",
 
   // Gameplay
-  "beginPlayingState",
+  "beginLoadingState",
   "init", "afterInit", "update", "draw", "cleanup",
   
   // Assets

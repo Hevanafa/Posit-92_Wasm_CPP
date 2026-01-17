@@ -9,6 +9,7 @@ dist/
 
 demos/*/*.ts
 !demos/*/exported.ts
+!demos/*/exports.ts
 
 prototype/*.ts
 unstable/*.ts
