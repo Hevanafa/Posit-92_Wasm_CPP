@@ -44,6 +44,10 @@ void printSimple(const std::string& text, const SmallInt x, const SmallInt y) {
   }
 }
 
+void drawFPS() {
+  printSimple("FPS:" + i32str(getLastFPS()), 240, 0);
+}
+
 
 export void cleanup() {
   
@@ -52,6 +56,7 @@ export void cleanup() {
 export void init() {
   initBuffer();
   initDeltaTime();
+  initFPSCounter();
 }
 
 export void afterInit() {
@@ -60,6 +65,7 @@ export void afterInit() {
 
 export void update() {
   updateDeltaTime();
+  incrementFPS();
 
   if (isKeyDown(SC_ESC)) signalDone();
 
@@ -89,5 +95,7 @@ export void draw() {
     vgaWidth / 2, vgaHeight / 2,
     (SmallInt) x, (SmallInt) y, white);
 
+
+  drawFPS();
   vgaFlush();
 }
