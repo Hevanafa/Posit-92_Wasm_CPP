@@ -122,7 +122,7 @@ void debugMouse() {
 
 export void draw() {
   Word w, a;
-  const char* s = "Hello WebAssembly from Posit-92 Wasm!";
+  char s[256];
 
   if (actualGameState == GameStateLoading) {
     renderLoadingScreen();
@@ -136,18 +136,13 @@ export void draw() {
   else
     spr(imgDosuEXE[0], 148, 88);
 
-  // for (a = 0; a<100; a++)
-  //   sprRegion(defaultFont.imgHandle,
-  //     10, 10, 10, 10,
-  //     random() % vgaWidth, random() % vgaHeight);
-
-  // for (a=0; a<100; a++)
-  //   spr(imgDosuEXE[0], random() % vgaWidth, random() % vgaHeight);
-
+  // strcpy(s, "Hello WebAssembly from Posit-92 Wasm!");
+  strcpy(s, "Test ");
+  strcat(s, i32str(123));
   w = measureDefault(s);
   printDefault(s, (vgaWidth - w) / 2, 120);
 
-  // debugMouse();
+  debugMouse();
 
   drawMouse();
   drawFPS();

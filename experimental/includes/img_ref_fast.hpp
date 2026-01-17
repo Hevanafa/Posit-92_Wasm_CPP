@@ -19,8 +19,13 @@ void spr(const LongInt imgHandle, const SmallInt x, const SmallInt y) {
   image = getImagePtr(imgHandle);
   // data = PByte(image^.dataPtr);
 
-  if (image->allocSize == 0)
-    panicHalt("imgHandle " + i32str(imgHandle) + " allocSize is 0!");
+  if (image->allocSize == 0) {
+    char msg[32];
+    strcpy(msg, "imgHandle ");
+    strcat(msg, i32str(imgHandle));
+    strcat(msg, " allocSize is 0!");
+    panicHalt(msg);
+  }
   
   // writeLog("allocSize: " + i32str(image->allocSize));
 

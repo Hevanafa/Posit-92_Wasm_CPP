@@ -4,8 +4,10 @@
 
 #include "pascal_compat.hpp"
 
-std::string i32str(const LongInt value) {
-  return std::to_string(value);
+const char* i32str(const LongInt value) {
+  static char result[16];
+  snprintf(result, sizeof(result), "%d", value);
+  return result;
 }
 
 std::string f32str(const double value) {
