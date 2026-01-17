@@ -7,15 +7,37 @@
 "use strict";
 
 mergeInto(LibraryManager.library, {
-  signalDone: () => {},
+  // Intro
+  hideLoadingOverlay: () => {},
+  loadAssets: () => {},
+
+  // Loading
+  getLoadingActual: () => {},
+  getLoadingTotal: () => {},
+
+  hideCursor: () => {},
+  showCursor: () => {},
+
+  // Fullscreen
+  // toggleFullscreen
+  // endFullscreen
+  // getFullscreenState
+  fitCanvas: () => {},
 
   // keyboard.hpp
   isKeyDown: (n) => {},
+  signalDone: () => {},
 
   // logger.hpp
-  flushLog: () => {},
+  writeLogF32: n => {},
   writeLogI32: n => {},
   writeLogI64: n => {},
+  flushLog: () => {},
+
+  // Mouse
+  getMouseX: () => {},
+  getMouseY: () => {},
+  getMouseButton: () => {},
 
   // panic.hpp
   jsPanicHalt: (a, b) => {},
