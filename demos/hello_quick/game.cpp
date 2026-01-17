@@ -46,6 +46,25 @@ void drawFPS() {
   printDefault("FPS:" + i32str(getLastFPS()), 240, 0);
 }
 
+void drawMouse() {
+  spr(imgCursor, mouseX, mouseY);
+}
+
+export void beginLoadingState() {
+  actualGameState = GameStateLoading;
+  fitCanvas();
+  loadAssets();
+}
+
+void beginPlayingState() {
+  hideCursor();
+  fitCanvas();
+
+  // Initialise game state here
+  actualGameState = GameStatePlaying;
+  gameTime = 0.0;
+}
+
 
 export void cleanup() {
   
@@ -58,12 +77,15 @@ export void init() {
 }
 
 export void afterInit() {
-  gameTime = 0.0;
+  beginPlayingState();
 }
 
 export void update() {
   updateDeltaTime();
   incrementFPS();
+
+  // Handle inputs
+  updateMouse();
 
   if (isKeyDown(SC_ESC)) signalDone();
 
@@ -72,12 +94,26 @@ export void update() {
 }
 
 export void draw() {
-  double x, y;
+  Word w;
+  std::string s;
+
+  if (actualGameState == GameStateLoading) {
+    renderLoadingScreen();
+    return;
+  }
 
   cls(CornflowerBlue);
 
-  printBMFont(defaultFont, defaultFontGlyphs, "Hello world!", 30, 30);
+  if (trunc(gameTime * 4) and 1) > 0 then
+    spr(imgDosuEXE[1], 148, 88)
+  else
+    spr(imgDosuEXE[0], 148, 88);
 
+  s := 'Hello world!';
+  w := measureDefault(s);
+  printDefault("Hello world!", 30, 30);
+
+  drawMouse();
   drawFPS();
   vgaFlush();
 }

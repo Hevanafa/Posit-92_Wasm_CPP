@@ -1,8 +1,14 @@
 export const exportedFunctions = [
-  "getSurfacePtr",
-  "init", "afterInit", "update", "draw", "cleanup",
+  // Posit-92 API
   "registerImageRef",
+  "getSurfacePtr",
   "WasmGetMem",
-  // assets
-  "defaultFontPtr", "defaultFontGlyphsPtr"
+
+  // Gameplay
+  "beginPlayingState",
+  "init", "afterInit", "update", "draw", "cleanup",
+  
+  // Assets
+  "defaultFontPtr", "defaultFontGlyphsPtr",
+  "setImgCursor", "setImgDosuEXE"
 ];
