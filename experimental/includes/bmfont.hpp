@@ -22,13 +22,47 @@ TBMFont {
 using PBMFontGlyph = TBMFontGlyph*;
 using PBMFont = TBMFont*;
 
-void printBMFont(
+Word printBMFontChar(
+  const TBMFont font,
+  const TBMFontGlyph fontGlyphs[],
+  const char ch,
+  const SmallInt x,
+  const SmallInt y
+) {
+  Byte charcode;
+  SmallInt glyphIdx;
+  TBMFontGlyph glyph;
+
+  charcode = ch;
+
+  // Assuming the starting charcode is always 32
+  glyphIdx = charcode - 32;
+
+  // if (glyphIdx in [low(fontGlyphs)..high(fontGlyphs)]) {
+  // if (std::begin(fontGlyphs) <= glyphIdx && glyphIdx <= std::end(fontGlyphs)) {
+
+  // TODO: Implement something like glyphCount to check its range
+  if (glyphIdx >= 0 && glyphIdx < 95) {
+    glyph = fontGlyphs[glyphIdx];
+
+    sprRegion(
+      font.imgHandle,
+      glyph.x, glyph.y,
+      glyph.width, glyph.height,
+      x + glyph.xoffset, y + glyph.yoffset);
+    
+    return glyph.xadvance;
+  } else
+    return 0;
+}
+
+Word printBMFont(
   const TBMFont font,
   const TBMFontGlyph fontGlyphs[],
   const std::string text,
   const SmallInt x,
-  const SmallInt y)
-{
+  const SmallInt y
+) {
   Word a;
   char ch;
   SmallInt left = 0;
@@ -37,4 +71,8 @@ void printBMFont(
     ch = text[a];
     left += printBMFontChar(font, fontGlyphs, ch, x + left, y);
   }
+
+  return left;
 }
+
+// TODO: Measure BMFont
