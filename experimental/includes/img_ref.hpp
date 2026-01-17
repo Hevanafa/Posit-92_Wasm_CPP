@@ -42,7 +42,7 @@ SmallInt findEmptyImageRefSlot() {
   return -1;
 }
 
-export void registerImageRef(const LongInt imgHandle, const PByte tempPtr, const SmallInt w, const SmallInt h) {
+export void registerImageRefLegacy(const LongInt imgHandle, const PByte tempPtr, const SmallInt w, const SmallInt h) {
   SmallInt idx = findEmptyImageRefSlot();
 
   if (idx < 0) panicHalt("Image ref pool is full!");
@@ -77,6 +77,27 @@ export void registerImageRef(const LongInt imgHandle, const PByte tempPtr, const
   writeLog("20 bytes (from pointer)");
   for (Word a = 60; a < 80; a++)
     writeLogI32(getImagePtr(imgHandle)->dataPtr[a]);
+}
+
+
+Byte imageDataPool[256 * 1024];
+LongWord poolOffset = 0;
+
+export void registerImageRef(const LongInt imgHandle, const PByte tempPtr, const SmallInt w, const SmallInt h) {
+  LongWord allocSize = w * h * 4;
+
+  if (poolOffset + allocSize > sizeof(imageDataPool))
+    panicHalt("Image pool exhausted!");
+
+  imageRefs[imgHandle].dataPtr = imageDataPool + poolOffset;
+  memcpy(imageRefs[imgHandle].dataPtr, tempPtr, allocSize);
+
+  imageRefs[imgHandle].width = w;
+  imageRefs[imgHandle].height = h;
+  imageRefs[imgHandle].allocSize = allocSize;
+
+  poolOffset += allocSize;
+  free(tempPtr);
 }
 
 LongWord unsafeSprPget(const PImageRef image, const SmallInt x, const SmallInt y) {
