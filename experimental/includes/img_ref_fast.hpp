@@ -22,7 +22,7 @@ void spr(const LongInt imgHandle, const SmallInt x, const SmallInt y) {
   if (image->allocSize == 0)
     panicHalt("imgHandle " + i32str(imgHandle) + " allocSize is 0!");
   
-  writeLog("allocSize: " + i32str(image->allocSize));
+  // writeLog("allocSize: " + i32str(image->allocSize));
 
   for (py = 0; py < image->height; py++)
   for (px = 0; px < image->width; px++) {

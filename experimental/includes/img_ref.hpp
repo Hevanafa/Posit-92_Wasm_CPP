@@ -60,13 +60,17 @@ export void registerImageRef(const LongInt imgHandle, const PByte dataPtr, const
   LongWord offset = reinterpret_cast<LongWord>(dataPtr);
   writeLogI64(offset);
 
-  writeLog("20 bytes");
-  for (Word a = 60; a < 80; a++)
-    writeLogI32(imageRefs[imgHandle].dataPtr[a]);
-
   writeLog("imgHandle comparison for handle " + i32str(imgHandle));
   writeLogI64(reinterpret_cast<LongWord>(imageRefs[imgHandle].dataPtr));
   writeLogI64(reinterpret_cast<LongWord>(getImagePtr(imgHandle)->dataPtr));
+
+  writeLog("20 bytes (from direct access)");
+  for (Word a = 60; a < 80; a++)
+    writeLogI32(imageRefs[imgHandle].dataPtr[a]);
+
+  writeLog("20 bytes (from pointer)");
+  for (Word a = 60; a < 80; a++)
+    writeLogI32(getImagePtr(imgHandle)->dataPtr[a]);
 }
 
 LongWord unsafeSprPget(const PImageRef image, const SmallInt x, const SmallInt y) {

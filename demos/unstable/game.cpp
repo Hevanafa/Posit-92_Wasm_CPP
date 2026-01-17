@@ -67,6 +67,7 @@ export void update() {
 }
 
 bool once = false;
+int times = 0;
 
 export void draw() {
   double x, y;
@@ -75,13 +76,14 @@ export void draw() {
 
   cls(0xFF6495ED);
 
-  if (!once) {
-    once = true;
+  if (times < 3) {
+    // once = true;
 
     image = getImagePtr(imgCGA8x8);
 
     writeLog("What is imgCGA8x8?");
-    writeLogI32(imgCGA8x8);
+    writeLogI64(reinterpret_cast<LongWord>(image));
+    writeLogI64(reinterpret_cast<LongWord>(image->dataPtr));
     
     if (image == nullptr)
       writeLog("imgCGA8x8 is nil");
@@ -92,6 +94,8 @@ export void draw() {
         writeLogI32(image->dataPtr[a]);
         // writeLogI32(unsafeSprPget(image, a, 0));
     }
+
+    times++;
   }
 
   unsafePset(10, 10, white);
