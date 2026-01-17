@@ -60,7 +60,7 @@ Word printBMFontChar(
 Word printBMFont(
   const TBMFont font,
   const TBMFontGlyph fontGlyphs[],
-  const std::string& text,
+  const char* text,
   const SmallInt x,
   const SmallInt y
 ) {
@@ -68,7 +68,7 @@ Word printBMFont(
   char ch;
   SmallInt left = 0;
 
-  for (a = 0; a < text.length(); a++) {
+  for (a = 0; a < strlen(text); a++) {
     ch = text[a];
     left += printBMFontChar(font, fontGlyphs, ch, x + left, y);
   }
@@ -78,13 +78,13 @@ Word printBMFont(
 
 Word measureBMFont(
   const TBMFontGlyph glyphs[],
-  const std::string& text
+  const char* text
 ) {
   Word a, result = 0;
   SmallInt glyphIdx;
   Byte charcode;
 
-  for (a = 0; a < text.length(); a++) {
+  for (a = 0; a < strlen(text); a++) {
     charcode = text[a];
 
     // Assuming the starting charcode is always 32

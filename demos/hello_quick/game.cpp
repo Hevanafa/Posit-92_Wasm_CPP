@@ -68,13 +68,10 @@ void beginPlayingState() {
 }
 
 void renderLoadingScreen() {
-  static std::string s;
-  Word w;
-
   cls(0xFF000000);
 
-  s = "Progress: " + i32str(getLoadingActual()) + " / " + i32str(getLoadingTotal());
-  w = measureDefault(s);
+  const char* s = "Progress: " + i32str(getLoadingActual()) + " / " + i32str(getLoadingTotal());
+  Word w = measureDefault(s);
   printDefault(s, (vgaWidth - w) / 2, vgaHeight / 2 - defaultFont.lineHeight);
 
   vgaFlush();
@@ -119,7 +116,7 @@ void debugMouse() {
 
 export void draw() {
   Word w, a;
-  static const std::string s = "Hello WebAssembly from Posit-92 Wasm!";
+  const char* s = "Hello WebAssembly from Posit-92 Wasm!";
 
   if (actualGameState == GameStateLoading) {
     renderLoadingScreen();

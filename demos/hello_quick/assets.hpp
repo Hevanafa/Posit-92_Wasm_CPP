@@ -18,11 +18,11 @@ export PBMFontGlyph defaultFontGlyphsPtr() {
   return defaultFontGlyphs;
 }
 
-void printDefault(const std::string& text, const SmallInt x, const SmallInt y) {
+void printDefault(const char* text, const SmallInt x, const SmallInt y) {
   printBMFont(defaultFont, defaultFontGlyphs, text, x, y);
 }
 
-Word measureDefault(const std::string& text) {
+Word measureDefault(const char* text) {
   return measureBMFont(defaultFontGlyphs, text);
 }
 
