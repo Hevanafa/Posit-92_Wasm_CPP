@@ -1,24 +1,9 @@
 import { styleText } from "node:util";
+import { exportedFunctions } from "./exported";
 
 const compilerPath = "E:\\emsdk\\upstream\\emscripten\\emcc.bat";
 const primaryFile = ".\\game.cpp";
 const outputFile = "game.wasm";
-
-// Default exports
-// const exportedFunctions = [
-//   "getSurfacePtr",
-//   "init", "afterInit", "update", "draw",
-//   "WasmGetMem",
-//   // assets
-//   "setImgCGA8x8"
-// ];
-
-const exportedFunctions = [
-  "getLogBuffer",  // Logger
-  "getSurfacePtr",  // VGA
-  "initHeap",  // WasmHeap
-  "init", "afterInit", "update", "draw"
-];
 
 const commandLine = [
   compilerPath,
@@ -30,10 +15,6 @@ const commandLine = [
   "--js-library", "library.js",
   "--no-entry"
 ];
-
-// console.log(commandLine.join(" "));
-// process.exit(1);
-
 
 const proc = Bun.spawn(commandLine, {
   stdout: "pipe",
