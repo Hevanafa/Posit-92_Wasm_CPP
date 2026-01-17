@@ -20,14 +20,27 @@ extern "C" {
   extern void signalDone();
 }
 
+enum TGameStates {
+  GameStateIntro = 1,
+  GameStateLoading = 2,
+  GameStatePlaying = 3
+};
+
 const Byte
   SC_ESC = 0x01;
 
-const LongWord white = 0xFFFFFFFF;
+const LongWord CornflowerBlue = 0xFF6495ED;
 
 // Game state variables
-double angle = 0.0;
-double gameTime = 0.0;
+TGameStates actualGameState;
+double gameTime;
+
+extern "C" {
+  extern void signalDone();
+  extern void hideCursor();
+  extern void hideLoadingOverlay();
+  extern void loadAssets();
+}
 
 void drawFPS() {
   printDefault("FPS:" + i32str(getLastFPS()), 240, 0);
@@ -61,7 +74,7 @@ export void update() {
 export void draw() {
   double x, y;
 
-  cls(0xFF6495ED);
+  cls(CornflowerBlue);
 
   printBMFont(defaultFont, defaultFontGlyphs, "Hello world!", 30, 30);
 
