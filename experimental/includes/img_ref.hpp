@@ -42,22 +42,28 @@ SmallInt findEmptyImageRefSlot() {
   return -1;
 }
 
-export void registerImageRef(const LongInt imgHandle, const PByte dataPtr, const SmallInt w, const SmallInt h) {
+export void registerImageRef(const LongInt imgHandle, const PByte tempPtr, const SmallInt w, const SmallInt h) {
   SmallInt idx = findEmptyImageRefSlot();
 
   if (idx < 0) panicHalt("Image ref pool is full!");
 
+  LongWord allocSize = w * h * 4;
+
   imageRefs[imgHandle].width = w;
   imageRefs[imgHandle].height = h;
-  imageRefs[imgHandle].allocSize = w * h * 4;
-  imageRefs[imgHandle].dataPtr = dataPtr;
+  imageRefs[imgHandle].allocSize = allocSize;
+  imageRefs[imgHandle].dataPtr = (PByte) malloc(allocSize);
 
+  memcpy(imageRefs[imgHandle].dataPtr, tempPtr, allocSize);
+  free(tempPtr);
+
+  // Begin debug info
   writeLog(i32str(w) + ", " + i32str(h));
   writeLog("allocSize: ");
   writeLogI64(imageRefs[imgHandle].allocSize);
 
   writeLog("offset");
-  LongWord offset = reinterpret_cast<LongWord>(dataPtr);
+  LongWord offset = reinterpret_cast<LongWord>(tempPtr);
   writeLogI64(offset);
 
   writeLog("imgHandle comparison for handle " + i32str(imgHandle));
