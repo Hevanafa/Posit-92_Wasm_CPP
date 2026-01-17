@@ -10,6 +10,7 @@
 #include "img_ref.hpp"
 #include "img_ref_fast.hpp"
 #include "logger.hpp"
+#include "fps.hpp"
 #include "wasm_heap.hpp"
 
 #include "assets.hpp"
