@@ -33,7 +33,11 @@ class Posit92 {
    */
   #importObject = {
     env: {
+      // Pascal
       _haltproc: this.#handleHaltProc.bind(this),
+
+      // Emscripten
+      // wasi_snapshot_preview1: () => {},
 
       // Intro
       hideLoadingOverlay: this.hideLoadingOverlay.bind(this),
