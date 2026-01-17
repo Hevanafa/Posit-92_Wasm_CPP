@@ -14,7 +14,8 @@ mergeInto(LibraryManager.library, {
 
   // logger.hpp
   flushLog: () => {},
-  writeLogI32: (n) => {},
+  writeLogI32: n => {},
+  writeLogI64: n => {},
 
   // panic.hpp
   jsPanicHalt: (a, b) => {},

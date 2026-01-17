@@ -9,6 +9,7 @@
 #include "timing.hpp"
 #include "img_ref.hpp"
 #include "img_ref_fast.hpp"
+#include "logger.hpp"
 #include "wasm_heap.hpp"
 
 #include "assets.hpp"
@@ -65,10 +66,32 @@ export void update() {
   gameTime += dt;
 }
 
+bool once = false;
+
 export void draw() {
   double x, y;
+  Word a;
+  PImageRef image;
 
-  cls(0xFF6495ED);
+  cls(0xFF101010);
+
+  if (!once) {
+    once = true;
+
+    image = getImagePtr(imgCGA8x8);
+
+    writeLog("What is imgCGA8x8?");
+    writeLogI32(imgCGA8x8);
+    
+    if (image == nullptr)
+      writeLog("imgCGA8x8 is nil");
+    else {
+      writeLog("Pixels");
+
+      for (a=0; a<20; a++)
+        writeLogI32(unsafeSprPget(image, a, 0));
+    }
+  }
 
   spr(imgCGA8x8, 10, 10);
   // sprRegion(imgCGA8x8, 16, 16, 8, 8, 10, 10);

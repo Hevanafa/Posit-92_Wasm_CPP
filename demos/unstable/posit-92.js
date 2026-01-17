@@ -59,6 +59,7 @@ class Posit92 {
       // Logger
       writeLogF32: value => console.log("Pascal (f32):", value),
       writeLogI32: value => console.log("Pascal (i32):", value),
+      writeLogI64: value => console.log("Pascal (i64):", value),
       flushLog: () => this.#pascalWriteLog(),
 
       // Mouse
@@ -302,6 +303,8 @@ class Posit92 {
     const byteSize = img.width * img.height * 4;
     const wasmPtr = this.#wasm.exports.WasmGetMem(byteSize);
     wasmMemory.set(imageData.data, wasmPtr)
+
+    console.log("imageData", imageData.data.slice(40, 60));
 
     if (this.#images.length == 0)
       this.#images.push(null);

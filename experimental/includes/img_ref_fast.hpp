@@ -3,6 +3,7 @@
 #include "pascal_compat.hpp"
 #include "conv.hpp"
 #include "img_ref.hpp"
+#include "logger.hpp"
 #include "vga.hpp"
 #include "panic.hpp"
 
@@ -17,12 +18,11 @@ void spr(const LongInt imgHandle, const SmallInt x, const SmallInt y) {
 
   image = getImagePtr(imgHandle);
   // data = PByte(image^.dataPtr);
-  // writeLog('offset: ' + i32str(offset));
 
   if (image->allocSize == 0)
     panicHalt("imgHandle " + i32str(imgHandle) + " allocSize is 0!");
   
-  // writeLog('allocSize: ' + i32str(image^.allocSize));
+  writeLog("allocSize: " + i32str(image->allocSize));
 
   for (py = 0; py < image->height; py++)
   for (px = 0; px < image->width; px++) {

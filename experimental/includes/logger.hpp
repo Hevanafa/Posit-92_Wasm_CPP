@@ -8,6 +8,7 @@ Byte logBuffer[256];
 extern "C" {
   extern void flushLog();
   extern void writeLogI32(const LongInt value);
+  extern void writeLogI64(const int64 value);
 }
 
 export PByte getLogBuffer() {

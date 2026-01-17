@@ -1,6 +1,8 @@
 #pragma once
 
 #include "pascal_compat.hpp"
+#include "conv.hpp"
+#include "logger.hpp"
 #include "panic.hpp"
 
 struct TImageRef {
@@ -49,6 +51,22 @@ export void registerImageRef(const LongInt imgHandle, const PByte dataPtr, const
   imageRefs[imgHandle].height = h;
   imageRefs[imgHandle].allocSize = w * h * 4;
   imageRefs[imgHandle].dataPtr = dataPtr;
+
+  writeLog(i32str(w) + ", " + i32str(h));
+  writeLog("allocSize: ");
+  writeLogI64(imageRefs[imgHandle].allocSize);
+
+  writeLog("offset");
+  LongWord offset = reinterpret_cast<LongWord>(dataPtr);
+  writeLogI64(offset);
+
+  writeLog("20 bytes");
+  for (Word a = 60; a < 80; a++)
+    writeLogI32(imageRefs[imgHandle].dataPtr[a]);
+
+  writeLog("imgHandle comparison for handle " + i32str(imgHandle));
+  writeLogI64(reinterpret_cast<LongWord>(&imageRefs[imgHandle]));
+  writeLogI64(reinterpret_cast<LongWord>(getImagePtr(imgHandle)));
 }
 
 LongWord unsafeSprPget(const PImageRef image, const SmallInt x, const SmallInt y) {
