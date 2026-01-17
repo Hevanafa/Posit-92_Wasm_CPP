@@ -1,6 +1,3 @@
-// Copied from experimental/posit-92.js
-// Last synced: 2025-12-30
-
 "use strict";
 
 class Posit92 {
@@ -8,8 +5,8 @@ class Posit92 {
 
   #wasmSource = "game.wasm";
 
-  #vgaWidth = 128;
-  #vgaHeight = 128;
+  #vgaWidth = 320;
+  #vgaHeight = 200;
 
   /**
    * @type {HTMLCanvasElement}
@@ -70,7 +67,7 @@ class Posit92 {
       getMouseButton: () => this.#getMouseButton(),
 
       // Panic
-      panicHalt: this.#panicHalt.bind(this),
+      jsPanicHalt: this.#panicHalt.bind(this),
 
       // Timing
       getTimer: () => this.#getTimer(),

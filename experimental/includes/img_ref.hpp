@@ -3,13 +3,13 @@
 #include "pascal_compat.hpp"
 #include "panic.hpp"
 
-using PImageRef = TImageRef*;
 struct TImageRef {
   SmallInt width;
   SmallInt height;
   LongWord allocSize;
   PByte dataPtr;
 };
+using PImageRef = TImageRef*;
 
 const SmallInt
   MaxImageRefs = 256;
