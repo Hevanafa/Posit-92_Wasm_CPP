@@ -126,7 +126,7 @@ export void draw() {
 
   s = "Hello world!";
   w = measureDefault(s);
-  printDefault("Hello world!", 30, 30);
+  printDefault("Hello world!", (vgaWidth - w) / 2, 120);
 
   drawMouse();
   drawFPS();
