@@ -73,13 +73,20 @@ export void registerImageRefLegacy(const LongInt imgHandle, const PByte tempPtr,
  * 
  * This approach ensures stable addresses throughout the runtime
  **/
-Byte imageDataPool[256 * 1024];
+// Byte imageDataPool[256 * 1024];
+
+LongWord imageDataPoolSize = 256 * 1024;
+PByte imageDataPool = (PByte)malloc(imageDataPoolSize);
 LongWord poolOffset = 0;
 
-export void registerImageRef(const LongInt imgHandle, const PByte tempPtr, const SmallInt w, const SmallInt h) {
+export void registerImageRef(
+  const LongInt imgHandle,
+  const PByte tempPtr,
+  const SmallInt w, const SmallInt h)
+{
   LongWord allocSize = w * h * 4;
 
-  if (poolOffset + allocSize > sizeof(imageDataPool))
+  if (poolOffset + allocSize > imageDataPoolSize)
     panicHalt("Image pool exhausted!");
 
   imageRefs[imgHandle].dataPtr = imageDataPool + poolOffset;
